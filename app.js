@@ -99,7 +99,6 @@ if (favoritesElement && favoritesElement.parentElement) {
 } else {
   document.body.appendChild(planSection);
 }
-
 // Show November 20-30 verse references
 const novemberList = document.getElementById('novemberVerseList');
 

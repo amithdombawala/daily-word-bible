@@ -99,3 +99,18 @@ if (favoritesElement && favoritesElement.parentElement) {
 } else {
   document.body.appendChild(planSection);
 }
+
+// Show November 20-30 verse references
+const novemberList = document.getElementById('novemberVerseList');
+
+novPlan.forEach((verse, index) => {
+  const day = index + 20;
+  const item = document.createElement('div');
+
+  item.style.cssText =
+    'padding:13px 10px;border-bottom:1px solid #e8e6de;color:#24352c;font-size:15px;';
+
+  item.textContent = `November ${day} — ${verse.ref}`;
+
+  novemberList.appendChild(item);
+});

@@ -88,10 +88,8 @@ novemberItems.forEach((item, index) => {
 const toast = (message) => { const t=document.getElementById('toast'); t.textContent=message; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); };
 const verseText = () => `Daily Word – ${today.ref}\n\nSinhala: ${today.si}\n\nEnglish (KJV): ${today.en}\n\nMeaning: ${today.meaningSi}\n\nRelated verses: ${today.related.map(v=>v[0]).join(', ')}`;
 document.getElementById('share').addEventListener('click',async()=>{const text=verseText(); if(navigator.share){try{await navigator.share({title:'Daily Word – '+today.ref,text});}catch(e){}}else{try{await navigator.clipboard.writeText(text);toast('Verse copied to clipboard');}catch(e){toast('Sharing is not supported in this browser');}}});
-{const fav=getFavorites();const el=document.getElementById('favorites');if(!fav.length){el.innerHTML='<div style="color:#768078;font-size:13px">No saved verses yet. Tap “Save verse” to keep today’s verse here.</div>';return;}el.innerHTML=fav.map(v=>`<div class="saved-entry"><span><strong>${v.ref}</strong><br>${v.si}</span><button data-ref="${v.ref}">Remove</button></div>`).join('');el.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{localStorage.setItem('dailyword-favorites',JSON.stringify(getFavorites().filter(v=>v.ref!==btn.dataset.ref)));renderFavorites();}));}
 document.getElementById('save').addEventListener('click',()=>{const fav=getFavorites();if(fav.some(v=>v.ref===today.ref)){toast('This verse is already saved');return;}fav.unshift({ref:today.ref,si:today.si,en:today.en});localStorage.setItem('dailyword-favorites',JSON.stringify(fav));renderFavorites();toast('Verse saved to favorites');});
 const reflectionBox=document.getElementById('reflection');reflectionBox.value=localStorage.getItem('dailyword-reflection-'+today.ref)||'';
 document.getElementById('saveReflection').addEventListener('click',()=>{localStorage.setItem('dailyword-reflection-'+today.ref,reflectionBox.value);toast('Reflection saved on this device');});
-renderFavorites();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
 

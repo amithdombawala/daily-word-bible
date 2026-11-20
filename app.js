@@ -62,27 +62,3 @@ document.getElementById('saveReflection').addEventListener('click',()=>{localSto
 renderFavorites();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
 
-// Display the November 20-30 Bible verse list
-});
-
-const favoritesElement = document.getElementById('favorites');
-
-if (favoritesElement && favoritesElement.parentElement) {
-  favoritesElement.parentElement.insertBefore(
-    planSection,
-    favoritesElement
-  );
-} else {
-  document.body.appendChild(planSection);
-}
-novPlan.forEach((verse, index) => {
-  const day = index + 20;
-  const item = document.createElement('div');
-
-  item.style.cssText =
-    'padding:13px 10px;border-bottom:1px solid #e8e6de;color:#24352c;font-size:15px;';
-
-  item.textContent = `November ${day} — ${verse.ref}`;
-
-  novemberList.appendChild(item);
-});

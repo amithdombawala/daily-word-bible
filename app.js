@@ -63,30 +63,6 @@ renderFavorites();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
 
 // Display the November 20-30 Bible verse list
-const planSection = document.createElement('section');
-planSection.id = 'november-plan';
-planSection.style.cssText = 'margin:20px 0;padding:18px;background:#fff;border-radius:14px;border:1px solid #ddd;';
-
-planSection.innerHTML = `
-  <h2 style="margin:0 0 12px;color:#285b43;">
-    November 20–30 Bible Verse List
-  </h2>
-  <div id="november-list"></div>
-`;
-
-const listContainer = planSection.querySelector('#november-list');
-
-novPlan.forEach((verse, index) => {
-  const day = index + 20;
-  const item = document.createElement('div');
-
-  item.style.cssText =
-    'padding:12px 4px;border-bottom:1px solid #eee;font-size:15px;';
-
-  item.innerHTML =
-    `<strong>November ${day}</strong> – ${verse.ref}`;
-
-  listContainer.appendChild(item);
 });
 
 const favoritesElement = document.getElementById('favorites');
@@ -99,9 +75,6 @@ if (favoritesElement && favoritesElement.parentElement) {
 } else {
   document.body.appendChild(planSection);
 }
-// Show November 20-30 verse references
-const novemberList = document.getElementById('novemberVerseList');
-
 novPlan.forEach((verse, index) => {
   const day = index + 20;
   const item = document.createElement('div');

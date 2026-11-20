@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#20382e" />
+  <meta name="description" content="Daily Bible verse in Sinhala and English, with meaning and related verses." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <title>Daily Word | දිනපතා දේව වචනය</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
+    :root { --bg:#f4f3ed; --ink:#24352c; --muted:#647067; --green:#20382e; --gold:#c39a54; --card:#fffefa; --line:#e8e6de; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:'DM Sans','Noto Sans Sinhala',sans-serif; }
+    .wrap { max-width:780px; margin:auto; padding:28px 18px 48px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { width:42px;height:42px;border-radius:14px;background:var(--green);color:#f5dfb2;display:grid;place-items:center;font-size:23px; }
+    .brand-title { font-weight:700; letter-spacing:.2px; }
+    .brand-sub { color:var(--muted); font-size:12px; margin-top:2px; }
+    .date-pill { border:1px solid #d9d9cf; padding:9px 12px; border-radius:999px; color:var(--muted); font-size:12px; white-space:nowrap; }
+    .hero { border-radius:26px; padding:32px 26px 26px; color:#f7f5ee; background:radial-gradient(circle at 90% 0%, #45604d, transparent 45%), linear-gradient(135deg,#20382e,#172820); position:relative; overflow:hidden; box-shadow:0 18px 42px #24362b1b; }
+    .hero:after { content:'✦'; position:absolute; right:22px; bottom:-45px; font-size:180px; color:#ffffff08; pointer-events:none; }
+    .eyebrow { color:#e2c48c; text-transform:uppercase; letter-spacing:2.2px; font-size:11px; font-weight:700; }
+    h1 { font-size:clamp(24px,4vw,34px); margin:9px 0 22px; font-weight:600; }
+    .ref { color:#e0c48c; font-weight:600; font-size:14px; margin-bottom:10px; }
+    .verse { font-size:20px; line-height:1.8; margin:0 0 18px; max-width:620px; font-family:'Noto Sans Sinhala','DM Sans',sans-serif; }
+    .english { border-top:1px solid #ffffff2c; padding-top:16px; font-size:17px; line-height:1.65; color:#e8eee8; font-style:italic; max-width:640px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; position:relative; z-index:1; }
+    button { font:inherit; cursor:pointer; border:0; border-radius:12px; padding:11px 15px; font-weight:600; transition:.15s transform,.15s opacity; }
+    button:active { transform:scale(.98); }
+    .primary { background:#e1c18a; color:#20382e; }
+    .ghost { background:#ffffff14; color:#f5f5ee; border:1px solid #ffffff30; }
+    .section { margin-top:18px; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:22px; }
+    .section h2 { margin:0 0 13px; font-size:18px; }
+    .section p { margin:0; line-height:1.8; font-family:'Noto Sans Sinhala','DM Sans',sans-serif; }
+    .english-meaning { margin-top:12px!important; color:#69746c; font-family:'DM Sans',sans-serif!important; }
+    .related { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .related-item { border:1px solid var(--line); border-radius:14px; padding:13px; background:#faf9f4; }
+    .related-item strong { display:block; color:#94713c; margin-bottom:5px; }
+    .related-item span { font-size:13px; line-height:1.55; color:var(--muted); }
+    .reflection { background:#f1eee4; border-radius:14px; padding:16px; margin-top:14px; }
+    .reflection label { display:block; font-weight:700; margin-bottom:8px; }
+    textarea { width:100%; min-height:92px; border:1px solid #d8d6cc; border-radius:12px; padding:12px; background:#fffefa; resize:vertical; font:inherit; }
+    .reflection button { margin-top:9px; background:var(--green); color:white; }
+    .saved { margin-top:20px; }
+    .saved-list { display:grid; gap:8px; }
+    .saved-entry { display:flex; justify-content:space-between; align-items:center; gap:12px; border:1px solid var(--line); border-radius:12px; padding:12px; font-size:14px; }
+    .saved-entry button { background:#f0eee8; padding:8px 10px; font-size:12px; }
+    footer { text-align:center; color:var(--muted); font-size:12px; padding:26px 8px 0; line-height:1.6; }
+    .toast { position:fixed; left:50%; bottom:22px; transform:translateX(-50%); background:#20382e; color:white; padding:11px 16px; border-radius:12px; opacity:0; pointer-events:none; transition:opacity .2s; z-index:10; font-size:14px; }
+    .toast.show { opacity:1; }
+    @media(max-width:520px) { .wrap{padding:18px 13px 36px}.hero{padding:26px 19px}.verse{font-size:18px}.related{grid-template-columns:1fr}.date-pill{font-size:10px;padding:8px 10px}.section{padding:18px} }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="brand"><div class="logo">✝</div><div><div class="brand-title">Daily Word</div><div class="brand-sub">දිනපතා දේව වචනය</div></div></div>
+      <div class="date-pill" id="date"></div>
+    </header>
+    <article class="hero">
+      <div class="eyebrow">Today's scripture</div>
+      <h1>අද දවසේ දේව වචනය</h1>
+      <div class="ref" id="reference"></div>
+      <p class="verse" id="sinhala"></p>
+      <div class="english" id="english"></div>
+      <div class="hero-actions">
+        <button class="primary" id="share">↗ Share verse</button>
+        <button class="ghost" id="save">♡ Save verse</button>
+      </div>
+    </article>
+    <section class="section">
+      <h2>පදයේ තේරුම · Meaning</h2>
+      <p id="meaningSi"></p>
+      <p class="english-meaning" id="meaningEn"></p>
+    </section>
+    <section class="section">
+      <h2>අදාළ බයිබල් පද · Related verses</h2>
+      <div class="related" id="related"></div>
+    </section>
+    <section class="section">
+      <h2>අද මෙනෙහි කරන්න · Reflect today</h2>
+      <div class="reflection"><label for="reflection">ඔබගේ අදහස හෝ යාච්ඤාව</label><textarea id="reflection" placeholder="මෙම පදය අද ඔබට කතා කරන්නේ කෙසේද?"></textarea><button id="saveReflection">Save reflection</button></div>
+    </section>
+    <section class="section saved">
+      <h2>♡ ඔබ සුරැකි පද · Favorites</h2>
+      <div class="saved-list" id="favorites"></div>
+    </section>
+    <footer>Daily Word · A simple daily moment with God's Word<br>Verse wording is based on the public-domain King James Version (English); Sinhala text is a meaning-based rendering for this starter app.</footer>
+  </main>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

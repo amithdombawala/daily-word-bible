@@ -9,6 +9,27 @@
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <title>Daily Word | දිනපතා දේව වචනය</title>
   <style>
+    #novemberPlan .related-item {
+  transition: .2s ease;
+  cursor: pointer;
+}
+
+#novemberPlan .related-item:hover {
+  border-color: #c39a54;
+  background: #f3eee2;
+  transform: translateY(-2px);
+}
+
+#novemberPlan .related-item.selected-verse {
+  border: 2px solid #c39a54;
+  background: #f3eee2;
+  box-shadow: 0 3px 10px #c39a5420;
+}
+
+#novemberPlan .related-item:focus {
+  outline: 2px solid #c39a54;
+  outline-offset: 2px;
+}
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
     :root { --bg:#f4f3ed; --ink:#24352c; --muted:#647067; --green:#20382e; --gold:#c39a54; --card:#fffefa; --line:#e8e6de; }
     * { box-sizing:border-box; }

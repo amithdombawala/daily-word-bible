@@ -67,7 +67,7 @@ const novPlan = [
     related:[['Exodus 3:10','දෙවියන්වහන්සේ මෝසෙස්ව යැවූ සේක.'],['1 Samuel 3:10','කතා කළ මැනව; ඔබගේ සේවකයා අසයි.']]
   },
   {
-    ref:'Colossians 4:5-6',
+   ref:'කොලොස්සි 4:5–6 / Colossians 4:5-6',
     si:'පිටස්තරයන් සමඟ ප්‍රඥාවෙන් හැසිරෙන්න; අවස්ථාව ප්‍රයෝජනයට ගන්න.',
     en:'Walk in wisdom toward them that are without, redeeming the time.',
     meaningSi:'අන් අය සමඟ ප්‍රඥාවෙන් හා කරුණාවෙන් හැසිරෙන්න.',

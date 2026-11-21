@@ -148,21 +148,62 @@ const novPlan = [
   }];
 
 
-// November 20–30 Verse List
+
 const novemberList = document.getElementById('novemberList');
 
 if (novemberList) {
   novemberList.innerHTML = novPlan.map((verse, index) => `
-    <button
-      type="button"
-      class="nov-verse-button"
-      data-index="${index}">
+    <button type="button" data-index="${index}"
+      style="
+        display:block;
+        width:100%;
+        text-align:left;
+        padding:15px;
+        margin-bottom:12px;
+        border:1px solid #d6e3d9;
+        border-radius:12px;
+        background:#ffffff;
+        color:#20382e;
+        cursor:pointer;
+        font-family:inherit;
+      ">
       <strong>November ${index + 20} — ${verse.ref}</strong>
-      <span>${verse.si}</span>
-      <span class="view-verse">සම්පූර්ණ බයිබල් පදය බලන්න →</span>
+      <span style="display:block;margin-top:8px;">
+        ${verse.si}
+      </span>
+      <span style="display:block;margin-top:10px;color:#26734d;font-weight:bold;">
+        සම්පූර්ණ බයිබල් පදය බලන්න →
+      </span>
     </button>
   `).join('');
 
+  novemberList.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+      const verse = novPlan[Number(button.dataset.index)];
+
+      document.getElementById('reference').textContent = verse.ref;
+      document.getElementById('sinhala').textContent = '“' + verse.si + '”';
+      document.getElementById('english').textContent = '“' + verse.en + '”';
+      document.getElementById('meaningSi').textContent = verse.meaningSi;
+      document.getElementById('meaningEn').textContent = verse.meaningEn;
+
+      document.getElementById('related').innerHTML =
+        verse.related.map(([ref, desc]) =>
+          `<div class="related-item"><strong>${ref}</strong><span>${desc}</span></div>`
+        ).join('');
+
+      document.getElementById('reference').scrollIntoView({
+        behavior:'smooth',
+        block:'center'
+      });
+    });
+  });
+}
+const dayStart = new Date(
+  localDate.getFullYear(),
+  localDate.getMonth(),
+  localDate.getDate()
+);
   novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
     button.addEventListener('click', () => {
       const verse = novPlan[Number(button.dataset.index)];

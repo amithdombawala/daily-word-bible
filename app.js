@@ -138,7 +138,7 @@ const novPlan = [
     meaningEn:'Let your life reflect God’s goodness.',
     related:[['Isaiah 43:21','දෙවියන්වහන්සේගේ ප්‍රශංසාව ප්‍රකාශ කරන්න.'],['Ephesians 5:8','ආලෝකයේ දරුවන් ලෙස ජීවත් වන්න.']]
   }];
-];
+
 // November 20–30 Verse List
 const novemberList = document.getElementById('novemberList');
 

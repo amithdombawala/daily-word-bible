@@ -35,10 +35,6 @@ const verses = [
 {ref:'Micah 6:8',si:'යුක්තියෙන් ක්‍රියා කිරීම, කරුණාවට ප්‍රේම කිරීම සහ ඔබගේ දෙවියන්වහන්සේ සමඟ නිහතමානීව ගමන් කිරීම යහපත් බව ඔබට පෙන්වා ඇත.',en:'...to do justly, and to love mercy, and to walk humbly with thy God.',meaningSi:'විශ්වාසය ක්‍රියාවෙන් පෙන්වන්න: සාධාරණව හැසිරෙන්න, කරුණාව දක්වන්න, සහ දෙවියන්වහන්සේ ඉදිරියේ නිහතමානීව ජීවත් වන්න.',meaningEn:'Put faith into practice: act fairly, love mercy, and live humbly in your walk with God.',related:[['Matthew 23:23','යුක්තිය, කරුණාව සහ විශ්වාසවන්තකම වැදගත්ය.'],['James 2:17','ක්‍රියා නැති විශ්වාසය මළය.'],['Ephesians 4:32','එකිනෙකාට කරුණාවන්තව සමාව දෙන්න.']]},
 {ref:'Numbers 6:24-26',si:'ස්වාමීන්වහන්සේ ඔබට ආශීර්වාද කර ඔබ රැකගන්නා සේක්වා; උන්වහන්සේගේ මුහුණ ඔබ කෙරෙහි බැබළී ඔබට කරුණාව දක්වන සේක්වා; ඔබට සාමය දෙන සේක්වා.',en:'The LORD bless thee, and keep thee: The LORD make his face shine upon thee, and be gracious unto thee: The LORD lift up his countenance upon thee, and give thee peace.',meaningSi:'අද දවස දෙවියන්වහන්සේගේ ආශීර්වාදය, රැකවරණය, කරුණාව සහ සාමය ඔබ සමඟ ඇති බව සිහි කරමින් ආරම්භ කරන්න. මේ ආශීර්වාදය අන් අයටත් ප්‍රාර්ථනා කරන්න.',meaningEn:'Begin today remembering God’s blessing, protection, grace, and peace. Extend this same blessing to others.',related:[['Psalm 67:1','දෙවියන්වහන්සේගේ කරුණාව සහ ආශීර්වාදය අප කෙරෙහි වේවා.'],['2 Thessalonians 3:16','සාමයේ ස්වාමීන්වහන්සේ ඔබට සාමය දෙන සේක්වා.'],['Psalm 121:7-8','ස්වාමීන්වහන්සේ ඔබ රැකගන්නා සේක.']]}
 ];
-	 november2026 = {
-  20:0, 21:1, 22:2, 23:3, 24:4,
-  25:5, 26:6, 27:7, 28:8, 29:9, 30:10
-};
 
 const localDate = new Date();
 document.getElementById('date').textContent =

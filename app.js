@@ -222,27 +222,27 @@ const dayStart = new Date(
   localDate.getMonth(),
   localDate.getDate()
 );
-  novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
-    button.addEventListener('click', () => {
-      const verse = novPlan[Number(button.dataset.index)];
+ novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const verse = novPlan[Number(button.dataset.index)];
 
-      document.getElementById('reference').textContent = verse.ref;
-      document.getElementById('sinhala').textContent = '“' + verse.si + '”';
-      document.getElementById('english').textContent = '“' + verse.en + '”';
-      document.getElementById('meaningSi').textContent = verse.meaningSi;
-      document.getElementById('meaningEn').textContent = verse.meaningEn;
+    document.getElementById('reference').textContent = verse.ref;
+    document.getElementById('sinhala').textContent = '“' + verse.si + '”';
+    document.getElementById('english').textContent = '“' + verse.en + '”';
+    document.getElementById('meaningSi').textContent = verse.meaningSi;
+    document.getElementById('meaningEn').textContent = verse.meaningEn;
 
-      document.getElementById('related').innerHTML =
-        verse.related.map(([ref, desc]) =>
-          `<div class="related-item"><strong>${ref}</strong><span>${desc}</span></div>`
-        ).join('');
+    document.getElementById('related').innerHTML =
+      verse.related.map(([ref, desc]) =>
+        `<div class="related-item"><strong>${ref}</strong><span>${desc}</span></div>`
+      ).join('');
 
-      document.getElementById('reference').scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
+    document.getElementById('reference').scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
     });
   });
+});
 
 const dayIndex = Math.floor(dayStart.getTime() / 86400000) % verses.length;
 

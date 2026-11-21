@@ -147,23 +147,44 @@ const novPlan = [
     related:[['Isaiah 43:21','දෙවියන්වහන්සේගේ ප්‍රශංසාව ප්‍රකාශ කරන්න.'],['Ephesians 5:8','ආලෝකයේ දරුවන් ලෙස ජීවත් වන්න.']]
   }];
 
+
 // November 20–30 Verse List
 const novemberList = document.getElementById('novemberList');
 
 if (novemberList) {
   novemberList.innerHTML = novPlan.map((verse, index) => `
-    <div class="related-item" style="margin-bottom:10px;">
+    <button
+      type="button"
+      class="nov-verse-button"
+      data-index="${index}">
       <strong>November ${index + 20} — ${verse.ref}</strong>
       <span>${verse.si}</span>
-    </div>
- `).join('');
-}
+      <span class="view-verse">සම්පූර්ණ බයිබල් පදය බලන්න →</span>
+    </button>
+  `).join('');
 
-const dayStart = new Date(
-  localDate.getFullYear(),
-  localDate.getMonth(),
-  localDate.getDate()
-);
+  novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const verse = novPlan[Number(button.dataset.index)];
+
+      document.getElementById('reference').textContent = verse.ref;
+      document.getElementById('sinhala').textContent = '“' + verse.si + '”';
+      document.getElementById('english').textContent = '“' + verse.en + '”';
+      document.getElementById('meaningSi').textContent = verse.meaningSi;
+      document.getElementById('meaningEn').textContent = verse.meaningEn;
+
+      document.getElementById('related').innerHTML =
+        verse.related.map(([ref, desc]) =>
+          `<div class="related-item"><strong>${ref}</strong><span>${desc}</span></div>`
+        ).join('');
+
+      document.getElementById('reference').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    });
+  });
+}
 
 const dayIndex = Math.floor(dayStart.getTime() / 86400000) % verses.length;
 

@@ -243,7 +243,6 @@ const dayStart = new Date(
       });
     });
   });
-}
 
 const dayIndex = Math.floor(dayStart.getTime() / 86400000) % verses.length;
 

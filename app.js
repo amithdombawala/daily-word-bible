@@ -190,23 +190,38 @@ document.getElementById('share').addEventListener('click', async () => {
   }
 });
 
-// Save reflection for the currently selected verse
-document.getElementById('saveReflection').addEventListener('click', () => {
-  const reflection = document.getElementById('reflection').value;
 
-  localStorage.setItem(
-    'dailyword-reflection-' + today.ref,
-    reflection
-  );
+// Safe reflection storage
+function saveReflection(showMessage = false) {
+  const reflectionBox = document.getElementById('reflection');
 
-  toast('Reflection saved on this device');
+  if (!reflectionBox || !today) return;
+
+  try {
+    localStorage.setItem(
+      'dailyword-reflection-' + today.ref,
+      reflectionBox.value
+    );
+
+    if (showMessage) {
+      toast('Reflection saved successfully!');
+    }
+  } catch (error) {
+    console.error('Reflection save failed:', error);
+
+    if (showMessage) {
+      toast('Unable to save reflection!');
+    }
+  }
+}
+// Save button
+document.getElementById('saveReflection').addEventListener('click', (event) => {
+  event.preventDefault();
+  saveReflection(true);
 });
 
-// Register service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(error => {
-      console.log('Service worker registration failed:', error);
-    });
-  });
-}
+// Auto-save while typing
+document.getElementById('reflection').addEventListener('input', () => {
+  saveReflection(false);
+});
+

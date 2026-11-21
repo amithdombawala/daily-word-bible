@@ -149,53 +149,53 @@ const novPlan = [
 
 
 
+
+// November 20–30 Verse List
 const novemberList = document.getElementById('novemberList');
 
 if (novemberList) {
+  const verseDetail = document.createElement('section');
+  verseDetail.style.display = 'none';
+  verseDetail.style.padding = '18px';
+  verseDetail.style.marginTop = '12px';
+  verseDetail.style.border = '1px solid #d8e2da';
+  verseDetail.style.borderRadius = '12px';
+
+  const verseTitle = document.createElement('h3');
+  const verseText = document.createElement('p');
+
+  verseText.style.fontSize = '1.15rem';
+  verseText.style.lineHeight = '1.9';
+
+  const backButton = document.createElement('button');
+  backButton.textContent = '← නැවත පද ලැයිස්තුවට';
+
+  backButton.addEventListener('click', () => {
+    verseDetail.style.display = 'none';
+    novemberList.style.display = '';
+  });
+
+  verseDetail.append(verseTitle, verseText, backButton);
+  novemberList.insertAdjacentElement('afterend', verseDetail);
+
   novemberList.innerHTML = novPlan.map((verse, index) => `
-    <button type="button" data-index="${index}"
-      style="
-        display:block;
-        width:100%;
-        text-align:left;
-        padding:15px;
-        margin-bottom:12px;
-        border:1px solid #d6e3d9;
-        border-radius:12px;
-        background:#ffffff;
-        color:#20382e;
-        cursor:pointer;
-        font-family:inherit;
-      ">
-      <strong>November ${index + 20} — ${verse.ref}</strong>
-      <span style="display:block;margin-top:8px;">
-        ${verse.si}
-      </span>
-      <span style="display:block;margin-top:10px;color:#26734d;font-weight:bold;">
-        සම්පූර්ණ බයිබල් පදය බලන්න →
-      </span>
+    <button type="button"
+      data-verse-index="${index}"
+      style="display:block;width:100%;text-align:left;
+      margin-bottom:10px;padding:14px;cursor:pointer;">
+      November ${index + 20} — ${verse.ref}
     </button>
   `).join('');
 
   novemberList.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', () => {
-      const verse = novPlan[Number(button.dataset.index)];
+      const verse = novPlan[Number(button.dataset.verseIndex)];
 
-      document.getElementById('reference').textContent = verse.ref;
-      document.getElementById('sinhala').textContent = '“' + verse.si + '”';
-      document.getElementById('english').textContent = '“' + verse.en + '”';
-      document.getElementById('meaningSi').textContent = verse.meaningSi;
-      document.getElementById('meaningEn').textContent = verse.meaningEn;
+      verseTitle.textContent = verse.ref;
+      verseText.textContent = verse.si;
 
-      document.getElementById('related').innerHTML =
-        verse.related.map(([ref, desc]) =>
-          `<div class="related-item"><strong>${ref}</strong><span>${desc}</span></div>`
-        ).join('');
-
-      document.getElementById('reference').scrollIntoView({
-        behavior:'smooth',
-        block:'center'
-      });
+      novemberList.style.display = 'none';
+      verseDetail.style.display = 'block';
     });
   });
 }

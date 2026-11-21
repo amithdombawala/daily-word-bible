@@ -148,9 +148,10 @@ if (novemberList) {
       <strong>November ${index + 20} — ${verse.ref}</strong>
       <span>${verse.si}</span>
     </div>
-  `).join('');
+ `).join('');
 }
-];const dayStart = new Date(
+
+const dayStart = new Date(
   localDate.getFullYear(),
   localDate.getMonth(),
   localDate.getDate()

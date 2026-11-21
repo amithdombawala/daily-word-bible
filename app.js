@@ -49,20 +49,6 @@ document.getElementById('date').textContent =
     day:'numeric'
   });
 
-const november2026 = {
-  20:0,
-  21:1,
-  22:2,
-  23:3,
-  24:4,
-  25:5,
-  26:6,
-  27:7,
-  28:8,
-  29:9,
-  30:10
-};
-
 const novPlan = [
   {
     ref:'Isaiah 6:8',

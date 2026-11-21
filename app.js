@@ -33,195 +33,31 @@ const novPlan = [
 {ref:'Philippians 2:14-15',si:'සියල්ල මැසිවිලි හා විවාද නැතිව කරන්න; එවිට ඔබ වංක පරම්පරාවක් අතර ලෝකයේ ආලෝකයන් මෙන් බැබළෙන්නහුය.',en:'Do all things without murmurings and disputings... among whom ye shine as lights in the world;',meaningSi:'මැසිවිලි වෙනුවට ස්තුතිවන්තකමත්, අඬදබර වෙනුවට සාමයත් තෝරාගෙන අන් අයට ආදර්ශයක් වන්න.',meaningEn:'Choose gratitude and peace instead of grumbling and arguments, shining as an example to others.',related:[['Colossians 3:23','සෑම දෙයක්ම හදවතින් ස්වාමීන්වහන්සේට මෙන් කරන්න.'],['Ephesians 4:29','අන් අය ගොඩනඟන යහපත් වචන කතා කරන්න.']]},
 {ref:'1 Peter 2:9',si:'ඔබ තෝරාගත් පරම්පරාවක්, රාජකීය පූජකත්වයක්, ශුද්ධ ජාතියක්, දෙවියන්වහන්සේගේම ජනතාවක්ය; අන්ධකාරයෙන් තම පුදුම ආලෝකයට ඔබ කැඳවූ තැනැන්වහන්සේගේ ගුණ ප්‍රකාශ කිරීමටය.',en:'Ye are a chosen generation, a royal priesthood, an holy nation, a peculiar people; that ye should shew forth the praises of him who hath called you out of darkness into his marvellous light.',meaningSi:'දෙවියන්වහන්සේ අපව උන්වහන්සේගේ ආලෝකයට කැඳවා ඇත්තේ උන්වහන්සේගේ යහපත්කම ප්‍රකාශ කිරීමටය. ඔබගේ ජීවිතය උන්වහන්සේගේ ගුණ පෙන්වීමට යොදාගන්න.',meaningEn:'God calls His people into His light so they can proclaim His goodness. Let your life reflect His praise.',related:[['Isaiah 43:21','දෙවියන්වහන්සේගේ ප්‍රශංසාව ප්‍රකාශ කිරීමට තෝරාගත් ජනතාව.'],['Ephesians 5:8','අඳුරෙන් ආලෝකයට පැමිණ ආලෝකයේ දරුවන් ලෙස ජීවත් වන්න.']]}
 ];
-const november2026 = {
-  20: 0, 21: 1, 22: 2, 23: 3, 24: 4,
-  25: 5, 26: 6, 27: 7, 28: 8, 29: 9, 30: 10
-};
+const november2026 = {20:0,21:1,22:2,23:3,24:4,25:5,26:6,27:7,28:8,29:9,30:10};
 
 const localDate = new Date();
-
-document.getElementById('date').textContent =
-  localDate.toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-
-const dayStart = new Date(
-  localDate.getFullYear(),
-  localDate.getMonth(),
-  localDate.getDate()
-);
-
-const dayIndex = Math.floor(dayStart.getTime() / 86400000) % verses.length;
-
-let today =
-  localDate.getFullYear() === 2026 &&
-  localDate.getMonth() === 10 &&
-  november2026[localDate.getDate()] !== undefined
-    ? novPlan[november2026[localDate.getDate()]]
-    : verses[dayIndex];
-
-// Display selected Bible verse
-function displayVerse(verse) {
-  today = verse;
-
-  document.getElementById('reference').textContent = verse.ref;
-  document.getElementById('sinhala').textContent = '“' + verse.si + '”';
-  document.getElementById('english').textContent = '“' + verse.en + '”';
-  document.getElementById('meaningSi').textContent = verse.meaningSi;
-  document.getElementById('meaningEn').textContent = verse.meaningEn;
-
-  document.getElementById('related').innerHTML =
-    verse.related.map(([ref, desc]) => `
-      <div class="related-item">
-        <strong>${ref}</strong>
-        <span>${desc}</span>
-      </div>
-    `).join('');
-
-  // Load reflection saved for this particular verse
-  document.getElementById('reflection').value =
-    localStorage.getItem('dailyword-reflection-' + verse.ref) || '';
-
-  // Highlight selected November date
-  document.querySelectorAll('#novemberPlan .related-item').forEach(item => {
-    item.classList.remove('selected-verse');
-  });
-
-  document.querySelectorAll('#novemberPlan .related-item').forEach(item => {
-    if (item.dataset.verseRef === verse.ref) {
-      item.classList.add('selected-verse');
-    }
-  });
-}
-
-// Display today's verse first
-displayVerse(today);
-
-// Make November 20–30 verses clickable
-const novemberItems = document.querySelectorAll(
-  '#novemberPlan .related-item'
-);
-
-novemberItems.forEach((item, index) => {
-  const day = 20 + index;
-  const verse = novPlan[index];
-
-  if (!verse) return;
-
-  item.dataset.day = day;
-  item.dataset.verseRef = verse.ref;
-  item.style.cursor = 'pointer';
-  item.setAttribute('role', 'button');
-  item.setAttribute('tabindex', '0');
-
-  item.addEventListener('click', () => {
-    displayVerse(verse);
-
-    document.querySelector('.hero').scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  });
-
-  // Keyboard support
-  item.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      displayVerse(verse);
-
-      document.querySelector('.hero').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  });
-});
-
-// Toast message
-const toast = message => {
-  const t = document.getElementById('toast');
-  t.textContent = message;
-  t.classList.add('show');
-
-  setTimeout(() => {
-    t.classList.remove('show');
-  }, 2200);
-};
-
-// Share Bible verse
-const verseText = () => `
-Daily Word – ${today.ref}
-
-Sinhala:
-${today.si}
-
-English (KJV):
-${today.en}
-
-Meaning:
-${today.meaningSi}
-
-Related verses:
-${today.related.map(v => v[0]).join(', ')}
-`;
-
-document.getElementById('share').addEventListener('click', async () => {
-  const text = verseText();
-
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: 'Daily Word – ' + today.ref,
-        text: text
-      });
-    } catch (e) {
-      // Sharing cancelled by user
-    }
-  } else {
-    try {
-      await navigator.clipboard.writeText(text);
-      toast('Verse copied to clipboard');
-    } catch (e) {
-      toast('Sharing is not supported in this browser');
-    }
-  }
-});
-
-
-// Safe reflection storage
-function saveReflection(showMessage = false) {
-  const reflectionBox = document.getElementById('reflection');
-
-  if (!reflectionBox || !today) return;
-
-  try {
-    localStorage.setItem(
-      'dailyword-reflection-' + today.ref,
-      reflectionBox.value
-    );
-
-    if (showMessage) {
-      toast('Reflection saved successfully!');
-    }
-  } catch (error) {
-    console.error('Reflection save failed:', error);
-
-    if (showMessage) {
-      toast('Unable to save reflection!');
-    }
-  }
-}
-// Save button
-document.getElementById('saveReflection').addEventListener('click', (event) => {
-  event.preventDefault();
-  saveReflection(true);
-});
-
-// Auto-save while typing
-document.getElementById('reflection').addEventListener('input', () => {
-  saveReflection(false);
-});
-
+const dateText = localDate.toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('date').textContent = dateText;
+// Use local calendar date so the verse changes each day, consistently across visits.
+const dayStart = new Date(localDate.getFullYear(),localDate.getMonth(),localDate.getDate());
+const dayIndex = Math.floor(dayStart.getTime()/86400000) % verses.length;
+// November 21–30, 2026 use a curated month-end sequence (10 entries appended above).
+const today = (localDate.getFullYear()===2026 && localDate.getMonth()===10 && november2026[localDate.getDate()]!==undefined)
+  ? novPlan[november2026[localDate.getDate()]]
+  : verses[(dayIndex + verses.length) % verses.length];
+document.getElementById('reference').textContent = today.ref;
+document.getElementById('sinhala').textContent = '“' + today.si + '”';
+document.getElementById('english').textContent = '“' + today.en + '”';
+document.getElementById('meaningSi').textContent = today.meaningSi;
+document.getElementById('meaningEn').textContent = today.meaningEn;
+document.getElementById('related').innerHTML = today.related.map(([ref,desc])=>`<div class="related-item"><strong>${ref}</strong><span>${desc}</span></div>`).join('');
+const toast = (message) => { const t=document.getElementById('toast'); t.textContent=message; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); };
+const verseText = () => `Daily Word – ${today.ref}\n\nSinhala: ${today.si}\n\nEnglish (KJV): ${today.en}\n\nMeaning: ${today.meaningSi}\n\nRelated verses: ${today.related.map(v=>v[0]).join(', ')}`;
+document.getElementById('share').addEventListener('click',async()=>{const text=verseText(); if(navigator.share){try{await navigator.share({title:'Daily Word – '+today.ref,text});}catch(e){}}else{try{await navigator.clipboard.writeText(text);toast('Verse copied to clipboard');}catch(e){toast('Sharing is not supported in this browser');}}});
+function getFavorites(){return JSON.parse(localStorage.getItem('dailyword-favorites')||'[]');}
+function renderFavorites(){const fav=getFavorites();const el=document.getElementById('favorites');if(!fav.length){el.innerHTML='<div style="color:#768078;font-size:13px">No saved verses yet. Tap “Save verse” to keep today’s verse here.</div>';return;}el.innerHTML=fav.map(v=>`<div class="saved-entry"><span><strong>${v.ref}</strong><br>${v.si}</span><button data-ref="${v.ref}">Remove</button></div>`).join('');el.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{localStorage.setItem('dailyword-favorites',JSON.stringify(getFavorites().filter(v=>v.ref!==btn.dataset.ref)));renderFavorites();}));}
+document.getElementById('save').addEventListener('click',()=>{const fav=getFavorites();if(fav.some(v=>v.ref===today.ref)){toast('This verse is already saved');return;}fav.unshift({ref:today.ref,si:today.si,en:today.en});localStorage.setItem('dailyword-favorites',JSON.stringify(fav));renderFavorites();toast('Verse saved to favorites');});
+const reflectionBox=document.getElementById('reflection');reflectionBox.value=localStorage.getItem('dailyword-reflection-'+today.ref)||'';
+document.getElementById('saveReflection').addEventListener('click',()=>{localStorage.setItem('dailyword-reflection-'+today.ref,reflectionBox.value);toast('Reflection saved on this device');});
+renderFavorites();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}

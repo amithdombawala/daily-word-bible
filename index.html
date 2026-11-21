@@ -9,27 +9,6 @@
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <title>Daily Word | දිනපතා දේව වචනය</title>
   <style>
-    #novemberPlan .related-item {
-  transition: .2s ease;
-  cursor: pointer;
-}
-
-#novemberPlan .related-item:hover {
-  border-color: #c39a54;
-  background: #f3eee2;
-  transform: translateY(-2px);
-}
-
-#novemberPlan .related-item.selected-verse {
-  border: 2px solid #c39a54;
-  background: #f3eee2;
-  box-shadow: 0 3px 10px #c39a5420;
-}
-
-#novemberPlan .related-item:focus {
-  outline: 2px solid #c39a54;
-  outline-offset: 2px;
-}
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
     :root { --bg:#f4f3ed; --ink:#24352c; --muted:#647067; --green:#20382e; --gold:#c39a54; --card:#fffefa; --line:#e8e6de; }
     * { box-sizing:border-box; }
@@ -89,26 +68,9 @@
       <div class="english" id="english"></div>
       <div class="hero-actions">
         <button class="primary" id="share">↗ Share verse</button>
+        <button class="ghost" id="save">♡ Save verse</button>
       </div>
     </article>
-    
-<section class="section" id="novemberPlan">
-  <h2>📖 November 20–30 · Bible Verse Plan</h2>
-
-  <div class="related">
-    <div class="related-item"><strong>November 20</strong><span>Isaiah 6:8</span></div>
-    <div class="related-item"><strong>November 21</strong><span>Colossians 4:5–6</span></div>
-    <div class="related-item"><strong>November 22</strong><span>Matthew 9:37–38</span></div>
-    <div class="related-item"><strong>November 23</strong><span>Acts 13:47</span></div>
-    <div class="related-item"><strong>November 24</strong><span>Acts 1:8</span></div>
-    <div class="related-item"><strong>November 25</strong><span>Romans 10:14–15</span></div>
-    <div class="related-item"><strong>November 26</strong><span>2 Timothy 4:2</span></div>
-    <div class="related-item"><strong>November 27</strong><span>Psalm 96:3</span></div>
-    <div class="related-item"><strong>November 28</strong><span>Matthew 5:14</span></div>
-    <div class="related-item"><strong>November 29</strong><span>Philippians 2:14–15</span></div>
-    <div class="related-item"><strong>November 30</strong><span>1 Peter 2:9</span></div>
-  </div>
-</section>
     <section class="section">
       <h2>පදයේ තේරුම · Meaning</h2>
       <p id="meaningSi"></p>
@@ -122,9 +84,13 @@
       <h2>අද මෙනෙහි කරන්න · Reflect today</h2>
       <div class="reflection"><label for="reflection">ඔබගේ අදහස හෝ යාච්ඤාව</label><textarea id="reflection" placeholder="මෙම පදය අද ඔබට කතා කරන්නේ කෙසේද?"></textarea><button id="saveReflection">Save reflection</button></div>
     </section>
+    <section class="section saved">
+      <h2>♡ ඔබ සුරැකි පද · Favorites</h2>
+      <div class="saved-list" id="favorites"></div>
+    </section>
     <footer>Daily Word · A simple daily moment with God's Word<br>Verse wording is based on the public-domain King James Version (English); Sinhala text is a meaning-based rendering for this starter app.</footer>
   </main>
   <div class="toast" id="toast"></div>
- <script type="module" src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

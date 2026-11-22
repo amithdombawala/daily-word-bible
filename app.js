@@ -131,7 +131,7 @@ const novPlan = [
     related:[['Matthew 5:16','ඔබගේ ආලෝකය බැබළෙන්නට ඉඩ දෙන්න.'],['Philippians 2:15','ලෝකය තුළ ආලෝකයන් ලෙස බැබළෙන්න.']]
   },
   {
-    ref:'Philippians 2:14-15',
+    ref:'පිලිප්පි 2:14-15 / Philippians 2:14-15',
     si:'සියල්ල මැසිවිලි හා විවාද නැතිව කරන්න.',
     en:'Do all things without murmurings and disputings.',
     meaningSi:'ස්තුතිවන්තකම හා සාමය තෝරාගෙන අන් අයට ආදර්ශයක් වන්න.',
@@ -139,7 +139,7 @@ const novPlan = [
     related:[['Colossians 3:23','සෑම දෙයක්ම හදවතින් කරන්න.'],['Ephesians 4:29','අන් අය ගොඩනඟන වචන කතා කරන්න.']]
   },
   {
-    ref:'1 Peter 2:9',
+    ref:'1 පේත්‍රස් 2:9 / 1 Peter 2:9',
     si:'ඔබ තෝරාගත් පරම්පරාවක්, රාජකීය පූජකත්වයක්, ශුද්ධ ජාතියක්ය.',
     en:'Ye are a chosen generation, a royal priesthood, an holy nation.',
     meaningSi:'දෙවියන්වහන්සේගේ යහපත්කම ඔබගේ ජීවිතයෙන් පෙන්වන්න.',

@@ -75,7 +75,7 @@ const novPlan = [
     related:[['Ephesians 5:15-16','ප්‍රඥාවෙන් ජීවත් වී කාලය ප්‍රයෝජනයට ගන්න.'],['Proverbs 15:1','මෘදු පිළිතුර කෝපය පහ කරයි.']]
   },
   {
-    ref:'Matthew 9:37-38',
+    ref:'මතෙව් 9:37-38 / Matthew 9:37-38',
     si:'අස්වැන්න බොහෝය, නමුත් සේවකයෝ ස්වල්පය.',
     en:'The harvest truly is plenteous, but the labourers are few.',
     meaningSi:'ශුභාරංචිය අවශ්‍ය අය වෙනුවෙන් යාච්ඤා කරන්න.',

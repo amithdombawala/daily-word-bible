@@ -59,7 +59,7 @@ const november2026 = {
 };
 const novPlan = [
   {
-    ref:'Isaiah 6:8',
+    ref:'යෙසායා 6:8 / Isaiah 6:8',
     si:'“මම මෙහි සිටිමි; මා යවන්න” යනුවෙන් යෙසායා ප්‍රතිචාර දැක්වීය.',
     en:'Then said I, Here am I; send me.',
     meaningSi:'දෙවියන්වහන්සේගේ කැඳවීමට කැමැත්තෙන් ප්‍රතිචාර දක්වා සේවයට සූදානම් වීම.',
@@ -83,7 +83,7 @@ const novPlan = [
     related:[['Luke 10:2','අස්වැන්නට සේවකයන් එවන ලෙස යාච්ඤා කරන්න.'],['John 4:35','අස්වැන්න සඳහා ඇස් ඔසවා බලන්න.']]
   },
   {
-    ref:'Acts 13:47',
+    ref:'ක්‍රියා 13:47 / Acts 13:47',
     si:'මම ඔබව ජාතීන්ට ආලෝකයක් ලෙස තැබුවෙමි.',
     en:'I have set thee to be a light of the Gentiles.',
     meaningSi:'දෙවියන්වහන්සේගේ ගැළවීමේ පණිවිඩය බෙදාගන්න.',
@@ -91,7 +91,7 @@ const novPlan = [
     related:[['Isaiah 49:6','ජාතීන්ට ආලෝකයක් වීමේ කැඳවීම.'],['Matthew 28:19','සියලු ජාතීන් වෙත ගොස් ගෝලයන් කරන්න.']]
   },
   {
-    ref:'Acts 1:8',
+    ref:'ක්‍රියා 1:8 / Acts 1:8',
     si:'ශුද්ධාත්මයාණන් ඔබ කෙරෙහි පැමිණි විට ඔබට බලය ලැබේ.',
     en:'Ye shall receive power, after that the Holy Ghost is come upon you.',
     meaningSi:'ශුද්ධාත්මයාණන්ගේ උපකාරයෙන් යේසුස්වහන්සේ ගැන සාක්ෂි දරන්න.',
@@ -99,7 +99,7 @@ const novPlan = [
     related:[['Matthew 28:19-20','ගෝලයන් කරන්න.'],['2 Timothy 1:8','ස්වාමීන් ගැන සාක්ෂි දැරීමට ලජ්ජා නොවන්න.']]
   },
   {
-    ref:'Romans 10:14-15',
+    ref:'රෝම 10:14-15 / Romans 10:14-15',
     si:'ඔවුන් අසා නැති තැනැන්වහන්සේ ගැන විශ්වාස කරන්නේ කෙසේද?',
     en:'How shall they believe in him of whom they have not heard?',
     meaningSi:'අන් අයට ශුභාරංචිය ඇසීමට එය බෙදාගන්නා අය අවශ්‍යය.',
@@ -107,7 +107,7 @@ const novPlan = [
     related:[['Isaiah 52:7','සාමයේ ශුභාරංචිය ගෙන එන්නා.'],['Mark 16:15','මුළු ලෝකයටම ශුභාරංචිය දේශනා කරන්න.']]
   },
   {
-    ref:'2 Timothy 4:2',
+    ref:'2 තිමෝති 4:2 / 2 Timothy 4:2',
     si:'වචනය දේශනා කරන්න; සෑම විටම සූදානම්ව සිටින්න.',
     en:'Preach the word; be instant in season, out of season.',
     meaningSi:'දෙවියන්වහන්සේගේ වචනය ඉවසීමෙන් හා ප්‍රේමයෙන් බෙදාගන්න.',
@@ -115,7 +115,7 @@ const novPlan = [
     related:[['1 Peter 3:15','බලාපොරොත්තුව ගැන මෘදුකමින් පිළිතුරු දෙන්න.'],['Colossians 4:5-6','ප්‍රඥාවෙන් හැසිරෙමින් කරුණාවෙන් කතා කරන්න.']]
   },
   {
-    ref:'Psalm 96:3',
+    ref:'ගීතාවලිය 96:3 / Psalm 96:3',
     si:'ජාතීන් අතර උන්වහන්සේගේ මහිමය ප්‍රකාශ කරන්න.',
     en:'Declare his glory among the heathen, his wonders among all people.',
     meaningSi:'දෙවියන්වහන්සේගේ යහපත් ක්‍රියා අන් අය සමඟ බෙදාගන්න.',
@@ -123,7 +123,7 @@ const novPlan = [
     related:[['Psalm 105:1','ස්වාමීන්වහන්සේගේ ක්‍රියා ප්‍රකාශ කරන්න.'],['Mark 5:19','ස්වාමීන් කළ දේ ගැන කියන්න.']]
   },
   {
-    ref:'Matthew 5:14',
+    ref:'මතෙව් 5:14 / Matthew 5:14',
     si:'ඔබ ලෝකයේ ආලෝකයය.',
     en:'Ye are the light of the world.',
     meaningSi:'කරුණාව හා යහපත් ක්‍රියා තුළින් අන් අයට ආලෝකයක් වන්න.',

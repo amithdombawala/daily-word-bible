@@ -416,6 +416,7 @@ async function loadCurrentReflection() {
   }
 }
 
+
 // Show all previously saved reflections
 async function loadReflectionHistory() {
   const historyId = 'reflectionHistory';
@@ -469,8 +470,61 @@ async function loadReflectionHistory() {
       const paragraph = document.createElement('p');
       paragraph.textContent = data.reflection || '';
 
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.style.backgroundColor = '#dc3545';
+      deleteButton.style.color = 'white';
+      deleteButton.style.border = 'none';
+      deleteButton.style.padding = '8px 14px';
+      deleteButton.style.borderRadius = '5px';
+      deleteButton.style.cursor = 'pointer';
+      deleteButton.style.marginTop = '5px';
+
+      deleteButton.addEventListener('click', async () => {
+
+        const confirmDelete = window.confirm(
+          'මේ Reflection එක Firebase එකෙන් සම්පූර්ණයෙන්ම මකා දමන්නද?'
+        );
+
+        if (!confirmDelete) return;
+
+        deleteButton.disabled = true;
+        deleteButton.textContent = 'Deleting...';
+
+        try {
+          await deleteDoc(doc(
+            db,
+            'users',
+            user.uid,
+            'reflections',
+            item.id
+          ));
+
+          localStorage.removeItem(
+            'dailyword-reflection-' + data.verseRef
+          );
+
+          if (data.verseRef === today.ref) {
+            reflectionBox.value = '';
+          }
+
+          toast('Reflection deleted from Firebase');
+
+          await loadReflectionHistory();
+
+        } catch (error) {
+          console.error('Reflection delete failed:', error);
+          toast('Could not delete reflection');
+
+          deleteButton.disabled = false;
+          deleteButton.textContent = 'Delete';
+        }
+      });
+
       entry.appendChild(heading);
       entry.appendChild(paragraph);
+      entry.appendChild(deleteButton);
+
       historyElement.appendChild(entry);
     });
 
@@ -478,52 +532,6 @@ async function loadReflectionHistory() {
     console.error('Could not load reflection history:', error);
     historyElement.innerHTML +=
       '<p>History could not be loaded. Please check your internet connection.</p>';
-  }
-}
-// Save reflection locally and to Firebase
-saveReflectionButton.addEventListener('click', async () => {
-  const reflection = reflectionBox.value.trim();
-
-  if (!reflection) {
-    toast('Please write your reflection first');
-    return;
-  }
-
-  // Save a local backup first
-  localStorage.setItem(
-    'dailyword-reflection-' + today.ref,
-    reflection
-  );
-
-  saveReflectionButton.disabled = true;
-  saveReflectionButton.textContent = 'Saving...';
-
-  try {
-    await saveReflectionToFirebase(today.ref, reflection);
-
-    toast('Reflection saved to Firebase');
-    await loadReflectionHistory();
-
-  } catch (error) {
-    console.error('Firebase save failed:', error);
-    toast('Cloud save failed. Saved on this device only.');
-
-  } finally {
-    saveReflectionButton.disabled = false;
-    saveReflectionButton.textContent = 'Save Reflection';
-  }
-});
-
-// Start Firebase connection and load saved data
-async function startReflectionFeatures() {
-  try {
-    await connectFirebase();
-    await loadCurrentReflection();
-    await loadReflectionHistory();
-
-  } catch (error) {
-    console.error('Firebase connection failed:', error);
-    toast('Firebase connection failed');
   }
 }
 

@@ -535,12 +535,60 @@ async function loadReflectionHistory() {
   }
 }
 
+
+ // Save reflection locally and to Firebase
+saveReflectionButton.addEventListener('click', async () => {
+  const reflection = reflectionBox.value.trim();
+
+  if (!reflection) {
+    toast('Please write your reflection first');
+    return;
+  }
+
+  localStorage.setItem(
+    'dailyword-reflection-' + today.ref,
+    reflection
+  );
+
+  saveReflectionButton.disabled = true;
+  saveReflectionButton.textContent = 'Saving...';
+
+  try {
+    await saveReflectionToFirebase(today.ref, reflection);
+
+    toast('Reflection saved to Firebase');
+    await loadReflectionHistory();
+
+  } catch (error) {
+    console.error('Firebase save failed:', error);
+    toast('Cloud save failed. Check Firebase connection.');
+
+  } finally {
+    saveReflectionButton.disabled = false;
+    saveReflectionButton.textContent = 'Save Reflection';
+  }
+});
+
+// Start Firebase connection and load saved data
+async function startReflectionFeatures() {
+  try {
+    await connectFirebase();
+    await loadCurrentReflection();
+    await loadReflectionHistory();
+
+  } catch (error) {
+    console.error('Firebase connection failed:', error);
+    toast('Firebase connection failed');
+  }
+}
+
 // Render saved favorite verses
 renderFavorites();
 
 // Start reflection features
 startReflectionFeatures();
-// Register the service worker for the Daily Word app
+
+// Register the service worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')

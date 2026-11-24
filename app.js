@@ -232,10 +232,36 @@ const dayStart = new Date(
     document.getElementById('meaningSi').textContent = verse.meaningSi;
     document.getElementById('meaningEn').textContent = verse.meaningEn;
 
-    document.getElementById('related').innerHTML =
-      verse.related.map(([ref, desc]) =>
-        `<div class="related-item"><strong>${ref}</strong><span>${desc}</span></div>`
-      ).join('');
+
+document.getElementById('related').innerHTML =
+  today.related.map(([ref, desc], index) => `
+    <div class="related-item">
+      <button type="button"
+        class="related-verse-button"
+        data-related-index="${index}"
+        style="width:100%;text-align:left;background:#faf9f4;padding:10px;color:#94713c;">
+        ${ref} — සම්පූර්ණ පදය බලන්න
+      </button>
+      <div class="related-full-verse"
+        style="display:none;margin-top:10px;line-height:1.8;color:#647067;">
+        ${desc}
+      </div>
+    </div>
+  `).join('');
+
+document.querySelectorAll('.related-verse-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const verseText = button.nextElementSibling;
+    const isHidden = verseText.style.display === 'none';
+
+    verseText.style.display = isHidden ? 'block' : 'none';
+    button.textContent = button.textContent.replace(
+      isHidden ? 'සම්පූර්ණ පදය බලන්න' : 'පදය සඟවන්න',
+      isHidden ? 'පදය සඟවන්න' : 'සම්පූර්ණ පදය බලන්න'
+    );
+  });
+});
+
 
     document.getElementById('reference').scrollIntoView({
       behavior: 'smooth',

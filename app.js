@@ -167,6 +167,112 @@ novPlan.forEach((verse, index) => {
 });
 
 
+const bibleBookCodes = {
+  'Genesis':'GEN',
+  'Exodus':'EXO',
+  'Leviticus':'LEV',
+  'Numbers':'NUM',
+  'Deuteronomy':'DEU',
+  'Joshua':'JOS',
+  'Judges':'JDG',
+  'Ruth':'RUT',
+  '1 Samuel':'1SA',
+  '2 Samuel':'2SA',
+  '1 Kings':'1KI',
+  '2 Kings':'2KI',
+  'Psalms':'PSA',
+  'Psalm':'PSA',
+  'Proverbs':'PRO',
+  'Ecclesiastes':'ECC',
+  'Isaiah':'ISA',
+  'Jeremiah':'JER',
+  'Lamentations':'LAM',
+  'Ezekiel':'EZK',
+  'Daniel':'DAN',
+  'Nahum':'NAM',
+  'Micah':'MIC',
+  'Matthew':'MAT',
+  'Mark':'MRK',
+  'Luke':'LUK',
+  'John':'JHN',
+  'Acts':'ACT',
+  'Romans':'ROM',
+  '1 Corinthians':'1CO',
+  '2 Corinthians':'2CO',
+  'Galatians':'GAL',
+  'Ephesians':'EPH',
+  'Philippians':'PHP',
+  'Colossians':'COL',
+  '1 Thessalonians':'1TH',
+  '2 Thessalonians':'2TH',
+  '1 Timothy':'1TI',
+  '2 Timothy':'2TI',
+  'Hebrews':'HEB',
+  'James':'JAS',
+  '1 Peter':'1PE',
+  '2 Peter':'2PE',
+  '1 John':'1JN',
+  '2 John':'2JN',
+  '3 John':'3JN',
+  'Jude':'JUD',
+  'Revelation':'REV'
+};
+
+function getBibleVerseUrl(reference) {
+  const match = reference.match(/^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$/);
+
+  if (!match) return null;
+
+  const book = bibleBookCodes[match[1].trim()];
+
+  if (!book) return null;
+
+  const chapter = match[2];
+  const startVerse = match[3];
+  const endVerse = match[4];
+
+  const passage = endVerse
+    ? `${book}.${chapter}.${startVerse}-${endVerse}`
+    : `${book}.${chapter}.${startVerse}`;
+
+  return `https://www.bible.com/bible/1794/${passage}.SROV`;
+}
+
+function renderRelatedVerses(verse, target) {
+  target.innerHTML = '';
+
+  verse.related.forEach(([ref, desc]) => {
+    const item = document.createElement('div');
+    item.className = 'related-item';
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = ref + ' — සම්පූර්ණ පදය කියවන්න';
+
+    button.style.width = '100%';
+    button.style.textAlign = 'left';
+    button.style.padding = '12px';
+    button.style.marginBottom = '6px';
+    button.style.cursor = 'pointer';
+
+    button.addEventListener('click', () => {
+      const url = getBibleVerseUrl(ref);
+
+      if (url) {
+        window.open(url, '_blank', 'noopener');
+      } else {
+        toast('Bible reference එක හඳුනාගත නොහැකියි');
+      }
+    });
+
+    const description = document.createElement('span');
+    description.textContent = desc;
+
+    item.append(button, description);
+    target.appendChild(item);
+  });
+}
+
 
 // November 20–30 Verse List
 const novemberList = document.getElementById('novemberList');
@@ -217,11 +323,7 @@ if (novemberList) {
     });
   });
 }
-const dayStart = new Date(
-  localDate.getFullYear(),
-  localDate.getMonth(),
-  localDate.getDate()
-);
+  
  novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
   button.addEventListener('click', () => {
     const verse = novPlan[Number(button.dataset.index)];

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#144531" />
+  <meta name="theme-color" content="#1b3b2b" />
   <meta name="description" content="Daily Bible verse in Sinhala and English, with meaning and related verses." />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
@@ -12,19 +12,14 @@
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg-top: #e8f5ee;
-      --bg-mid: #d3eadc;
-      --bg-bot: #bce0ca;
-      --ink: #0f2a1f;
-      --muted: #395c4b;
-      --green-dark: #0d2e21;
-      --green-deep: #144531;
-      --green-main: #1c5e43;
-      --green-light: #2b7a58;
-      --mint: #a8e2c3;
-      --surface: #ffffff;
-      --surface-soft: #f2faf5;
-      --line: #c7e2d2;
+      --bg: #f4f1ea;
+      --ink: #17241e;
+      --muted: #55635b;
+      --green: #1b3b2b;
+      --gold: #c99c4e;
+      --card: #ffffff;
+      --card-soft: #faf8f3;
+      --line: #e4dfd3;
     }
 
     * {
@@ -38,9 +33,7 @@
       width: 100%;
       max-width: 100%;
       overflow-x: hidden;
-      background:
-        radial-gradient(circle at 80% 10%, rgba(72, 168, 124, 0.22), transparent 42%),
-        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bot) 100%);
+      background: var(--bg);
       color: var(--ink);
       font-family: 'DM Sans', 'Noto Sans Sinhala', sans-serif;
     }
@@ -49,30 +42,21 @@
       width: 100%;
       max-width: 780px;
       margin: 0 auto;
-      padding: 20px 16px 50px;
+      padding: 24px 16px 48px;
     }
 
-    /* 3D raised header card */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 20px;
-      background: linear-gradient(180deg, #ffffff 0%, #f4fbf7 100%);
-      border: 1px solid var(--line);
-      border-top: 1px solid #ffffff;
-      border-radius: 20px;
-      padding: 12px 14px;
-      box-shadow:
-        0 6px 0 #b7d8c4,
-        0 14px 26px rgba(13, 46, 33, 0.14);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
       min-width: 0;
     }
 
@@ -80,64 +64,51 @@
       width: 44px;
       height: 44px;
       border-radius: 14px;
-      background: linear-gradient(155deg, #2d845f 0%, var(--green-deep) 55%, var(--green-dark) 100%);
-      color: #e4faee;
-      border-top: 1px solid rgba(214, 248, 229, 0.55);
+      background: var(--green);
+      color: #f4f1ea;
       display: grid;
       place-items: center;
       font-size: 22px;
       flex-shrink: 0;
-      box-shadow:
-        0 4px 0 #092117,
-        0 8px 16px rgba(10, 36, 25, 0.25);
     }
 
     .brand-title {
       font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--green);
       font-size: 16px;
-      color: var(--green-dark);
       line-height: 1.25;
     }
 
     .brand-sub {
       color: var(--muted);
-      font-size: 12.5px;
+      font-size: 13px;
       margin-top: 2px;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
       line-height: 1.35;
     }
 
     .date-pill {
-      background: linear-gradient(180deg, #f3fbf6 0%, #e1f3e8 100%);
-      border: 1px solid #bedbc9;
-      padding: 8px 12px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 8px 13px;
       border-radius: 999px;
-      color: var(--green-deep);
-      font-weight: 600;
-      font-size: 11.5px;
+      color: var(--muted);
+      font-size: 12px;
       white-space: nowrap;
       flex-shrink: 0;
-      box-shadow: 0 2px 0 #b7d7c3;
     }
 
-    /* 3D hero card with black shadow cross */
     .hero {
+      background: var(--green);
+      color: #f7f5ef;
       border-radius: 26px;
-      padding: 28px 22px 26px;
-      color: #f5fbf7;
-      background:
-        radial-gradient(circle at 18% 12%, rgba(138, 224, 178, 0.22), transparent 45%),
-        linear-gradient(155deg, #236b4d 0%, #164934 48%, #0c2b1e 100%);
+      padding: 28px 22px;
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(168, 226, 195, 0.35);
-      border-top: 1px solid rgba(208, 247, 226, 0.45);
-      box-shadow:
-        0 8px 0 #092217,
-        0 20px 38px rgba(10, 36, 25, 0.28);
     }
 
-    .hero-shadow-layer {
+    .hero-cross-bg {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -157,139 +128,95 @@
     }
 
     .eyebrow {
-      color: #b7ebd0;
+      color: #e6c68a;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 2.2px;
       font-size: 11px;
       font-weight: 700;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
     }
 
     h1 {
-      font-size: clamp(22px, 4.2vw, 32px);
-      margin: 8px 0 16px;
+      font-size: clamp(24px, 4vw, 34px);
+      margin: 8px 0 18px;
       font-weight: 700;
       line-height: 1.35;
       color: #ffffff;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
     }
 
     .ref {
-      display: inline-block;
-      color: #dcf8e9;
-      background: rgba(6, 22, 15, 0.68);
-      border: 1px solid rgba(168, 226, 195, 0.35);
-      padding: 5px 12px;
-      border-radius: 999px;
+      color: #e6c68a;
       font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 14px;
-      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12), 0 3px 8px rgba(0, 0, 0, 0.3);
+      font-size: 14px;
+      margin-bottom: 12px;
     }
 
     .verse {
-      font-size: 19.5px;
+      font-size: 20px;
       line-height: 1.9;
       margin: 0 0 16px;
       color: #ffffff;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
       word-wrap: break-word;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
     }
 
     .english {
-      border-top: 1px solid rgba(183, 235, 208, 0.26);
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
       padding-top: 14px;
-      font-size: 16px;
+      font-size: 16.5px;
       line-height: 1.7;
-      color: #e6f7ee;
+      color: #e3ece7;
       font-style: italic;
       word-wrap: break-word;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       margin-top: 22px;
     }
 
-    /* 3D tactile buttons */
     button {
       font: inherit;
       cursor: pointer;
       border: 0;
-      border-radius: 13px;
+      border-radius: 12px;
       padding: 11px 16px;
       font-weight: 600;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
     button:active {
-      transform: translateY(3px);
+      transform: scale(0.98);
     }
 
     .primary {
-      background: linear-gradient(180deg, #b8ebd0 0%, #8fd5b1 100%);
-      color: #092419;
-      border-top: 1px solid #dcf9ea;
-      box-shadow:
-        0 4px 0 #4f9472,
-        0 8px 16px rgba(0, 0, 0, 0.25);
-    }
-
-    .primary:active {
-      box-shadow: 0 1px 0 #4f9472, 0 3px 6px rgba(0, 0, 0, 0.2);
+      background: #e6c68a;
+      color: #17241e;
     }
 
     .ghost {
-      background: linear-gradient(180deg, rgba(24, 68, 49, 0.88) 0%, rgba(9, 32, 22, 0.92) 100%);
-      color: #f3fbf7;
-      border: 1px solid rgba(168, 226, 195, 0.36);
-      box-shadow:
-        0 4px 0 #061810,
-        0 8px 16px rgba(0, 0, 0, 0.25);
+      background: rgba(255, 255, 255, 0.12);
+      color: #f7f5ef;
+      border: 1px solid rgba(255, 255, 255, 0.22);
     }
 
-    .ghost:active {
-      box-shadow: 0 1px 0 #061810, 0 3px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    /* 3D section cards */
     .section {
-      margin-top: 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #f7fcfa 100%);
+      margin-top: 16px;
+      background: var(--card);
       border: 1px solid var(--line);
-      border-top: 1px solid #ffffff;
-      border-radius: 22px;
+      border-radius: 20px;
       padding: 20px;
-      box-shadow:
-        0 6px 0 #b7d8c4,
-        0 14px 26px rgba(13, 46, 33, 0.12);
       overflow: hidden;
     }
 
     .section h2 {
       margin: 0 0 12px;
-      font-size: 17.5px;
-      color: var(--green-dark);
-      display: flex;
-      align-items: center;
-      gap: 9px;
+      font-size: 18px;
+      color: var(--green);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
       line-height: 1.45;
-    }
-
-    .section h2::before {
-      content: "";
-      width: 6px;
-      height: 19px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, #32946a 0%, var(--green-dark) 100%);
-      box-shadow: 0 2px 4px rgba(13, 46, 33, 0.25);
-      flex-shrink: 0;
     }
 
     .section p {
@@ -315,17 +242,15 @@
 
     .related-item {
       border: 1px solid var(--line);
-      border-top: 1px solid #ffffff;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 13px;
-      background: linear-gradient(180deg, #ffffff 0%, #edf8f1 100%);
-      box-shadow: 0 4px 0 #c1decb, 0 8px 16px rgba(13, 46, 33, 0.08);
+      background: var(--card-soft);
       min-width: 0;
     }
 
     .related-item strong {
       display: block;
-      color: var(--green-deep);
+      color: #94713c;
       margin-bottom: 6px;
       font-size: 14px;
     }
@@ -338,54 +263,41 @@
     }
 
     .reflection {
-      background: linear-gradient(180deg, #eef8f2 0%, #e2f2e8 100%);
-      border: 1px solid #c2decb;
-      border-radius: 16px;
+      background: var(--card-soft);
+      border: 1px solid var(--line);
+      border-radius: 14px;
       padding: 14px;
-      box-shadow: inset 0 2px 4px rgba(13, 46, 33, 0.06);
     }
 
     .reflection label {
       display: block;
       font-weight: 700;
       margin-bottom: 8px;
-      color: var(--green-dark);
+      color: var(--green);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
     }
 
     textarea {
       width: 100%;
       min-height: 94px;
-      border: 1px solid #b2d3be;
-      border-radius: 13px;
+      border: 1px solid #d5cfc2;
+      border-radius: 12px;
       padding: 12px;
-      background: var(--surface);
+      background: var(--card);
       color: var(--ink);
       resize: vertical;
       font: inherit;
       line-height: 1.75;
-      box-shadow: inset 0 2px 5px rgba(13, 46, 33, 0.07);
-    }
-
-    textarea:focus {
-      outline: 2px solid rgba(28, 94, 67, 0.35);
-      border-color: var(--green-main);
     }
 
     .reflection button {
-      margin-top: 12px;
-      background: linear-gradient(180deg, #277453 0%, var(--green-dark) 100%);
+      margin-top: 10px;
+      background: var(--green);
       color: #ffffff;
-      border-top: 1px solid #59b48d;
-      box-shadow: 0 4px 0 #081e15, 0 8px 14px rgba(13, 46, 33, 0.2);
-    }
-
-    .reflection button:active {
-      box-shadow: 0 1px 0 #081e15;
     }
 
     .saved {
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
     .saved-list {
@@ -398,30 +310,28 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      background: linear-gradient(180deg, #ffffff 0%, #eff8f2 100%);
+      background: var(--card-soft);
       border: 1px solid var(--line);
-      border-radius: 15px;
+      border-radius: 14px;
       padding: 12px 14px;
       font-size: 14px;
       line-height: 1.7;
       color: var(--ink);
-      box-shadow: 0 3px 0 #c2decb;
     }
 
     .saved-entry button {
-      background: linear-gradient(180deg, #e5f4ea 0%, #cce6d6 100%);
-      color: var(--green-dark);
+      background: #ece7dc;
+      color: var(--ink);
       padding: 8px 12px;
       font-size: 12px;
       flex-shrink: 0;
-      box-shadow: 0 2px 0 #a8cbb5;
     }
 
     footer {
       text-align: center;
       color: var(--muted);
       font-size: 12px;
-      padding: 26px 8px 12px;
+      padding: 24px 8px 12px;
       line-height: 1.75;
     }
 
@@ -430,11 +340,10 @@
       left: 50%;
       bottom: 20px;
       transform: translateX(-50%);
-      background: linear-gradient(180deg, #1b573e 0%, var(--green-dark) 100%);
+      background: var(--green);
       color: #ffffff;
-      border: 1px solid rgba(168, 226, 195, 0.35);
       padding: 10px 16px;
-      border-radius: 13px;
+      border-radius: 12px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease;
@@ -442,7 +351,6 @@
       font-size: 13.5px;
       max-width: 90vw;
       text-align: center;
-      box-shadow: 0 5px 0 #071b13, 0 12px 22px rgba(0, 0, 0, 0.25);
     }
 
     .toast.show {
@@ -455,7 +363,6 @@
       }
       header {
         flex-wrap: wrap;
-        padding: 10px 12px;
       }
       .date-pill {
         font-size: 11px;
@@ -492,28 +399,10 @@
     </header>
 
     <article class="hero">
-      <!-- 3D depth glow + black cross shadow -->
-      <svg class="hero-shadow-layer" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <defs>
-          <radialGradient id="topHighlight3D" cx="24%" cy="18%" r="55%">
-            <stop offset="0%" stop-color="#a8e8c6" stop-opacity="0.22" />
-            <stop offset="65%" stop-color="#1c6145" stop-opacity="0.05" />
-            <stop offset="100%" stop-color="#071d14" stop-opacity="0" />
-          </radialGradient>
-          <filter id="softBlackShadow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="8" />
-          </filter>
-        </defs>
-        <rect width="800" height="420" fill="url(#topHighlight3D)" />
-        <!-- Soft black shadow behind the cross -->
-        <g fill="#030a07" fill-opacity="0.52" filter="url(#softBlackShadow)" transform="translate(10, 12)">
-          <rect x="646" y="85" width="22" height="255" rx="6" />
-          <rect x="598" y="148" width="118" height="20" rx="6" />
-        </g>
-        <!-- Crisp black shadow cross -->
-        <g fill="#040d09" fill-opacity="0.34">
-          <rect x="646" y="85" width="22" height="255" rx="6" />
-          <rect x="598" y="148" width="118" height="20" rx="6" />
+      <svg class="hero-cross-bg" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="#07130d" fill-opacity="0.24">
+          <rect x="652" y="88" width="20" height="245" rx="5" />
+          <rect x="606" y="148" width="112" height="18" rx="5" />
         </g>
       </svg>
 

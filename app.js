@@ -1,5 +1,11 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
-import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
+import {
+  getAuth,
+  signInAnonymously,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
 import {
   getFirestore,
   collection,
@@ -10,6 +16,7 @@ import {
   deleteDoc,
   query,
   orderBy,
+  onSnapshot,
   serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
 
@@ -25,6 +32,57 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
+
+const ADMIN_EMAILS = ["admin@dailyword.app"];
+const CUSTOM_VERSES_CACHE_KEY = "dailyword-custom-verses-cache";
+
+function apply3DButtonStyle(btn, isTodayHighlight = false) {
+  if (!btn) return;
+  btn.style.fontFamily = "inherit";
+  btn.style.fontWeight = "600";
+  btn.style.borderRadius = "14px";
+  btn.style.padding = "12px 16px";
+  btn.style.cursor = "pointer";
+  btn.style.transition = "transform 0.12s ease, box-shadow 0.12s ease";
+
+  const restShadow = isTodayHighlight
+    ? "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 0 #0d1f17, 0 8px 18px rgba(25,56,42,0.22)"
+    : "inset 0 1px 0 rgba(255,255,255,0.92), 0 4px 0 #b4c2b8, 0 8px 16px rgba(25,56,42,0.08)";
+
+  const pressShadow = isTodayHighlight
+    ? "inset 0 2px 5px rgba(0,0,0,0.28), 0 1px 0 #0d1f17, 0 3px 8px rgba(25,56,42,0.14)"
+    : "inset 0 2px 4px rgba(25,56,42,0.15), 0 1px 0 #b4c2b8, 0 3px 8px rgba(25,56,42,0.08)";
+
+  if (isTodayHighlight) {
+    btn.style.background = "linear-gradient(180deg, #25523e 0%, #19382a 100%)";
+    btn.style.color = "#f5f2eb";
+    btn.style.border = "1px solid #11261d";
+  } else {
+    btn.style.background = "linear-gradient(180deg, #fdfcf9 0%, #efe9dc 100%)";
+    btn.style.color = "#19382a";
+    btn.style.border = "1px solid #cad5cd";
+  }
+
+  btn.style.boxShadow = restShadow;
+  btn.addEventListener("pointerdown", () => {
+    btn.style.transform = "translateY(3px)";
+    btn.style.boxShadow = pressShadow;
+  });
+  const release = () => {
+    btn.style.transform = "translateY(0)";
+    btn.style.boxShadow = restShadow;
+  };
+  btn.addEventListener("pointerup", release);
+  btn.addEventListener("pointerleave", release);
+}
+
+function decorateStaticButtons() {
+  document.querySelectorAll("button").forEach(btn => {
+    if (!btn.classList.contains("nov-verse-button")) {
+      apply3DButtonStyle(btn, true);
+    }
+  });
+}
 
 const verses = [
   {ref:'Philippians 4:13', si:'මා ශක්තිමත් කරන ක්‍රිස්තුස්වහන්සේ තුළින් මට සියල්ල කළ හැකිය.', en:'I can do all things through Christ which strengtheneth me.', meaningSi:'අපගේ ශක්තිය අප තුළින් පමණක් නොව ක්‍රිස්තුස්වහන්සේ තුළින් ලැබේ. අභියෝග හමුවේ තනිවම නොසිට උන්වහන්සේගේ උපකාරය විශ්වාස කරන්න.', meaningEn:'Our strength does not come only from ourselves. Through Christ, we can face challenges with courage and trust rather than feeling alone.', related:[['Isaiah 40:31','දෙවියන්වහන්සේ කෙරෙහි බලා සිටින අයට අලුත් ශක්තිය ලැබේ.'],['2 Corinthians 12:9','දුර්වලකම තුළ දෙවියන්වහන්සේගේ කරුණාව ප්‍රමාණවත්ය.'],['Psalm 28:7','ස්වාමීන්වහන්සේ අපගේ ශක්තිය සහ පලිහය.'],['Ephesians 6:10','ස්වාමීන්වහන්සේ තුළ ශක්තිමත් වන්න.']]},
@@ -94,9 +152,18 @@ const novemberSinhalaTexts = [
 
 novPlan.forEach((verse, index) => {
   verse.si = novemberSinhalaTexts[index];
+  verse.fromNovPlan = true;
 });
 
+let customCloudVerses = [];
+let activeVerse = null;
+
+function getAllVerses() {
+  return [...customCloudVerses, ...verses];
+}
+
 function displayVerse(verse) {
+  if (!verse) return;
   const refEl = document.getElementById('reference');
   const siEl = document.getElementById('sinhala');
   const enEl = document.getElementById('english');
@@ -106,27 +173,28 @@ function displayVerse(verse) {
 
   if (refEl) refEl.textContent = verse.ref;
   if (siEl) siEl.textContent = `“${verse.si}”`;
-  if (enEl) enEl.textContent = `“${verse.en}”`;
-  if (meaningSiEl) meaningSiEl.textContent = verse.meaningSi;
-  if (meaningEnEl) meaningEnEl.textContent = verse.meaningEn;
+  if (enEl) enEl.textContent = `“${verse.en || ''}”`;
+  if (meaningSiEl) meaningSiEl.textContent = verse.meaningSi || '';
+  if (meaningEnEl) meaningEnEl.textContent = verse.meaningEn || '';
 
   if (relatedEl) {
-    relatedEl.innerHTML = verse.related.map(([ref, desc], index) => `
-      <div class="related-item">
+    const relatedList = Array.isArray(verse.related) ? verse.related : [];
+    relatedEl.innerHTML = relatedList.map(([ref, desc], index) => `
+      <div style="margin-bottom:10px;">
         <button type="button"
           class="related-verse-button"
           data-related-index="${index}"
-          style="width:100%;text-align:left;background:#faf9f4;padding:10px;color:#94713c;">
+          style="display:block;width:100%;text-align:left;padding:10px;color:#94713c;">
           ${ref} — සම්පූර්ණ පදය බලන්න
         </button>
-        <div class="related-full-verse"
-          style="display:none;margin-top:10px;line-height:1.8;color:#647067;">
+        <div style="display:none;margin-top:10px;line-height:1.8;color:#647067;">
           ${desc}
         </div>
       </div>
     `).join('');
 
     relatedEl.querySelectorAll('.related-verse-button').forEach(button => {
+      apply3DButtonStyle(button, false);
       button.addEventListener('click', () => {
         const verseText = button.nextElementSibling;
         const isHidden = verseText.style.display === 'none';
@@ -140,17 +208,19 @@ function displayVerse(verse) {
   }
 }
 
-let activeVerse = null;
+function resolveDefaultVerse() {
+  const pool = getAllVerses();
+  const dayIndex = Math.floor(dayStart.getTime() / 86400000) % pool.length;
+  return (
+    localDate.getFullYear() === 2026 &&
+    localDate.getMonth() === 10 &&
+    november2026[localDate.getDate()] !== undefined
+  )
+    ? novPlan[november2026[localDate.getDate()]]
+    : pool[dayIndex];
+}
 
-const dayIndex = Math.floor(dayStart.getTime() / 86400000) % verses.length;
-const today = (
-  localDate.getFullYear() === 2026 &&
-  localDate.getMonth() === 10 &&
-  november2026[localDate.getDate()] !== undefined
-)
-  ? novPlan[november2026[localDate.getDate()]]
-  : verses[dayIndex];
-
+const today = resolveDefaultVerse();
 activeVerse = today;
 displayVerse(activeVerse);
 
@@ -172,6 +242,7 @@ if (novemberList) {
   const backButton = document.createElement('button');
   backButton.type = 'button';
   backButton.textContent = '← නැවත පද ලැයිස්තුවට';
+  apply3DButtonStyle(backButton, true);
   backButton.addEventListener('click', () => {
     verseDetail.style.display = 'none';
     novemberList.style.display = '';
@@ -180,17 +251,28 @@ if (novemberList) {
   verseDetail.append(verseTitle, verseText, backButton);
   novemberList.insertAdjacentElement('afterend', verseDetail);
 
-  novemberList.innerHTML = novPlan.map((verse, index) => `
-    <button type="button"
-      class="nov-verse-button"
-      data-index="${index}"
-      style="display:block;width:100%;text-align:left;
-      margin-bottom:10px;padding:14px;cursor:pointer;">
-      November ${index + 20} — ${verse.ref}
-    </button>
-  `).join('');
+  const currentNovDay =
+    localDate.getFullYear() === 2026 && localDate.getMonth() === 10
+      ? localDate.getDate()
+      : null;
+
+  novemberList.innerHTML = novPlan.map((verse, index) => {
+    const dayNum = index + 20;
+    return `
+      <button type="button"
+        class="nov-verse-button"
+        data-index="${index}"
+        data-day="${dayNum}"
+        style="display:block;width:100%;text-align:left;margin-bottom:12px;padding:14px 16px;cursor:pointer;">
+        November ${dayNum} — ${verse.ref}
+      </button>
+    `;
+  }).join('');
 
   novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
+    const isTodayBtn = Number(button.dataset.day) === currentNovDay;
+    apply3DButtonStyle(button, isTodayBtn);
+
     button.addEventListener('click', () => {
       const verse = novPlan[Number(button.dataset.index)];
       if (!verse) return;
@@ -215,8 +297,10 @@ function toast(message) {
   const element = document.getElementById('toast');
   if (!element) return;
   element.textContent = message;
-  element.classList.add('show');
-  setTimeout(() => element.classList.remove('show'), 2200);
+  element.style.display = 'block';
+  setTimeout(() => {
+    element.style.display = 'none';
+  }, 2200);
 }
 
 function getFavorites() {
@@ -235,13 +319,14 @@ function renderFavorites() {
   }
 
   element.innerHTML = favorites.map(verse => `
-    <div class="saved-entry">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:#ffffff;border:1px solid #d8e2da;border-radius:12px;padding:12px;margin-bottom:8px;">
       <span><strong>${verse.ref}</strong><br>${verse.si}</span>
       <button type="button" data-ref="${verse.ref}">Remove</button>
     </div>
   `).join('');
 
   element.querySelectorAll('button').forEach(button => {
+    apply3DButtonStyle(button, true);
     button.addEventListener('click', () => {
       const updated = getFavorites().filter(
         verse => verse.ref !== button.dataset.ref
@@ -298,6 +383,7 @@ const saveReflectionButton = document.getElementById('saveReflection');
 let currentUser = null;
 
 async function connectFirebase() {
+  if (auth.currentUser) return auth.currentUser;
   if (currentUser) return currentUser;
   const result = await signInAnonymously(auth);
   currentUser = result.user;
@@ -445,6 +531,225 @@ saveReflectionButton?.addEventListener('click', async () => {
   }
 });
 
+let extractedDocxLines = [];
+
+function parseLineToVerseObject(rawLine, englishTranslation) {
+  const trimmed = rawLine.trim();
+  const match = trimmed.match(/^([1-3]?\s*[A-Za-z\u0D80-\u0DFF]+\s+\d+:\d+(?:-\d+)?)\s*[:\-–—]\s*(.+)$/);
+
+  const ref = match ? match[1].trim() : `Admin Verse · ${trimmed.slice(0, 24)}`;
+  const si = match ? match[2].trim() : trimmed;
+
+  let related = [
+    ['Psalm 119:105', 'ඔබගේ වචනය මාගේ පාදවලට පහනක්ද මාගේ මාවතට ආලෝකයක්ද වේ.'],
+    ['John 17:17', 'සත්‍යය තුළින් ඔවුන් ශුද්ධ කරන්න; ඔබගේ වචනය සත්‍යයය.']
+  ];
+
+  if (/ප්‍රේම|ආදර|සෙනෙහස/u.test(si)) {
+    related = [
+      ['1 Corinthians 13:4', 'ප්‍රේමය ඉවසිලිවන්තය; ප්‍රේමය කරුණාවන්තය.'],
+      ['1 John 4:19', 'උන්වහන්සේ මුලින් අපට ප්‍රේම කළ නිසා අපි ප්‍රේම කරමු.']
+    ];
+  } else if (/බිය|සාමය|ශක්ති|විශ්වාස/u.test(si)) {
+    related = [
+      ['Isaiah 41:10', 'බිය නොවන්න, මක්නිසාද මම ඔබ සමඟ සිටිමි.'],
+      ['Philippians 4:7', 'සියලු බුද්ධිය ඉක්මවන දෙවියන්වහන්සේගේ සාමය ඔබගේ සිත් රැකගනී.']
+    ];
+  }
+
+  return {
+    ref,
+    si,
+    en: englishTranslation || '',
+    meaningSi: '1995 සිංහල සංශෝධිත පැරණි අනුවාදයේ (ROV) සන්දර්භයට අනුව මෙම පදයේ මූලික අදහස හා දෛනික මඟ පෙන්වීම මෙනෙහි කරන්න.',
+    meaningEn: 'Reflect on the core message and daily guidance of this passage in context.',
+    related
+  };
+}
+
+async function translateSiToEnOnline(text) {
+  if (!text) return '';
+  try {
+    const res = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=si|en`
+    );
+    if (!res.ok) return '';
+    const data = await res.json();
+    return data?.responseData?.translatedText || '';
+  } catch (err) {
+    console.warn('Translation error:', err);
+    return '';
+  }
+}
+
+function renderCustomVersesManagerList() {
+  const container = document.getElementById('customVersesList');
+  if (!container) return;
+
+  if (!customCloudVerses.length) {
+    container.innerHTML = '<div style="color:#768078;font-size:13px;">No admin-uploaded verses yet.</div>';
+    return;
+  }
+
+  container.innerHTML = customCloudVerses.map(item => `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:#ffffff;border:1px solid #d8e2da;border-radius:12px;padding:12px;margin-top:8px;">
+      <span>
+        <strong>${item.ref}</strong><br>
+        ${item.si}<br>
+        <small style="color:#647067;">${item.en || ''}</small>
+      </span>
+      <button type="button" class="delete-custom-verse-btn" data-id="${item.id}">Delete</button>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('.delete-custom-verse-btn').forEach(btn => {
+    apply3DButtonStyle(btn, true);
+    btn.addEventListener('click', async () => {
+      const docId = btn.dataset.id;
+      if (!docId) return;
+      try {
+        await deleteDoc(doc(db, 'customVerses', docId));
+        toast('Uploaded verse removed');
+      } catch (err) {
+        console.error('Failed to delete custom verse:', err);
+        toast('Unable to delete (check Admin login)');
+      }
+    });
+  });
+}
+
+function startLiveCustomVersesSync() {
+  try {
+    const cached = localStorage.getItem(CUSTOM_VERSES_CACHE_KEY);
+    if (cached) {
+      customCloudVerses = JSON.parse(cached) || [];
+      renderCustomVersesManagerList();
+    }
+  } catch {}
+
+  const q = query(collection(db, 'customVerses'), orderBy('createdAt', 'desc'));
+  onSnapshot(
+    q,
+    snapshot => {
+      customCloudVerses = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      localStorage.setItem(CUSTOM_VERSES_CACHE_KEY, JSON.stringify(customCloudVerses));
+      renderCustomVersesManagerList();
+
+      if (customCloudVerses.length > 0 && !activeVerse?.fromNovPlan) {
+        activeVerse = customCloudVerses[0];
+        displayVerse(activeVerse);
+      }
+    },
+    err => {
+      console.warn('Live verses listener error:', err);
+    }
+  );
+}
+
+function setupAdminPanel() {
+  const emailInput = document.getElementById('adminEmail');
+  const passInput = document.getElementById('adminPassword');
+  const loginBtn = document.getElementById('adminLoginBtn');
+  const logoutBtn = document.getElementById('adminLogoutBtn');
+  const loginSection = document.getElementById('adminLoginSection');
+  const editorSection = document.getElementById('adminEditorSection');
+  const docxFileInput = document.getElementById('docxFileInput');
+  const previewBox = document.getElementById('docxPreviewBox');
+  const publishBtn = document.getElementById('publishDocxBtn');
+
+  onAuthStateChanged(auth, user => {
+    const isAdmin = Boolean(
+      user && !user.isAnonymous && ADMIN_EMAILS.includes((user.email || '').toLowerCase())
+    );
+    if (loginSection) loginSection.style.display = isAdmin ? 'none' : 'block';
+    if (editorSection) editorSection.style.display = isAdmin ? 'block' : 'none';
+  });
+
+  loginBtn?.addEventListener('click', async () => {
+    const email = (emailInput?.value || '').trim();
+    const password = passInput?.value || '';
+    if (!email || !password) {
+      toast('Enter admin email and password');
+      return;
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast('Admin logged in');
+    } catch (err) {
+      console.error('Admin login failed:', err);
+      toast('Invalid admin credentials');
+    }
+  });
+
+  logoutBtn?.addEventListener('click', async () => {
+    try {
+      await signOut(auth);
+      toast('Admin logged out');
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  });
+
+  docxFileInput?.addEventListener('change', async event => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!window.mammoth) {
+      toast('mammoth.js not loaded');
+      return;
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await window.mammoth.extractRawText({ arrayBuffer });
+    extractedDocxLines = result.value
+      .split(/\r?\n/)
+      .map(line => line.trim())
+      .filter(Boolean);
+
+    if (previewBox) {
+      previewBox.innerHTML =
+        `<strong>${extractedDocxLines.length} lines found:</strong><br>` +
+        extractedDocxLines.slice(0, 6).map(l => `• ${l}`).join('<br>');
+    }
+  });
+
+  publishBtn?.addEventListener('click', async () => {
+    if (!extractedDocxLines.length) {
+      toast('Select a .docx file first');
+      return;
+    }
+
+    publishBtn.disabled = true;
+    publishBtn.textContent = 'Translating & Publishing...';
+
+    try {
+      for (const line of extractedDocxLines) {
+        const enText = await translateSiToEnOnline(line);
+        const verseObj = parseLineToVerseObject(line, enText);
+        const docId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+        await setDoc(doc(db, 'customVerses', docId), {
+          ...verseObj,
+          createdAt: serverTimestamp()
+        });
+      }
+
+      toast(`Published ${extractedDocxLines.length} verses to all users`);
+      extractedDocxLines = [];
+      if (docxFileInput) docxFileInput.value = '';
+      if (previewBox) previewBox.innerHTML = '';
+    } catch (err) {
+      console.error('Publish failed:', err);
+      toast('Publish failed — check Firestore rules & Admin login');
+    } finally {
+      publishBtn.disabled = false;
+      publishBtn.textContent = 'Translate & Publish';
+    }
+  });
+}
+
+decorateStaticButtons();
+setupAdminPanel();
+startLiveCustomVersesSync();
 renderFavorites();
 loadReflectionForRef(today.ref);
 loadReflectionHistory();

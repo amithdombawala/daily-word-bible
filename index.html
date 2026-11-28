@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#19382a" />
-  <meta name="description" content="Daily Bible verse in Sinhala and English, with meaning and related verses." />
+  <meta name="description" content="Daily Bible verse reflection in Sinhala and English, with meaning and related verses." />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <title>Daily Word | දිනපතා දේව වචනය</title>
@@ -16,7 +16,8 @@
       --ink: #182620;
       --muted: #56655d;
       --green: #19382a;
-      --green-soft: #264f3c;
+      --green-deep: #0f241a;
+      --green-soft: #27523e;
       --gold: #c89b4b;
       --gold-light: #ebd09c;
       --card: #ffffff;
@@ -62,23 +63,36 @@
       min-width: 0;
     }
 
+    /* 3D Raised Logo Button */
     .logo-btn {
-      width: 46px;
-      height: 46px;
+      width: 50px;
+      height: 50px;
       padding: 0;
-      border-radius: 14px;
-      background: #143f1a;
+      border-radius: 16px;
+      background: linear-gradient(155deg, #2e634a 0%, var(--green) 55%, var(--green-deep) 100%);
       display: grid;
       place-items: center;
       flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 4px 12px rgba(20, 63, 26, 0.22);
+      border: 1px solid rgba(235, 208, 156, 0.35);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow:
+        0 4px 0 #0a1912,
+        0 9px 18px rgba(24, 38, 32, 0.24),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    }
+
+    .logo-btn:active {
+      transform: translateY(2px);
+      box-shadow:
+        0 2px 0 #0a1912,
+        0 4px 10px rgba(24, 38, 32, 0.2);
     }
 
     .logo-btn svg {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       display: block;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
     }
 
     .brand-title {
@@ -408,18 +422,38 @@
       <div class="brand">
         <button type="button" class="logo-btn" id="logoReload" title="Refresh Daily Word" aria-label="Refresh Daily Word">
           <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="bible3dGrad" x1="16" y1="24" x2="104" y2="92" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#dfeee6" />
+              </linearGradient>
+              <linearGradient id="cross3dGrad" x1="32" y1="14" x2="88" y2="98" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fff8e8" />
+                <stop offset="100%" stop-color="#f2e4c4" />
+              </linearGradient>
+            </defs>
+            <!-- Open book 3D shadow -->
+            <path
+              d="M17 38C33 29 49 30 60 39C71 30 87 29 103 38V90C87 82 71 83 60 93C49 83 33 82 17 90V38Z"
+              fill="#091912"
+              fill-opacity="0.45"
+            />
+            <!-- Open book pages -->
             <path
               d="M16 34C32 25 49 26 60 35C71 26 88 25 104 34V86C88 78 71 79 60 89C49 79 32 78 16 86V34Z"
-              stroke="#ffffff"
+              fill="url(#bible3dGrad)"
+              fill-opacity="0.16"
+              stroke="url(#bible3dGrad)"
               stroke-width="6.5"
               stroke-linejoin="round"
             />
             <path d="M60 35V89" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" />
+            <!-- 3D Cross -->
             <path
               d="M53 16H67V42H88V56H67V96H53V56H32V42H53V16Z"
-              fill="#143f1a"
-              stroke="#ffffff"
-              stroke-width="6"
+              fill="url(#cross3dGrad)"
+              stroke="#143f1a"
+              stroke-width="3.5"
               stroke-linejoin="round"
             />
           </svg>
@@ -476,7 +510,7 @@
 
     <footer>
       Daily Word · A simple daily moment with God's Word<br>
-      Verse wording is based on the public-domain King James Version (English); Sinhala text is a meaning-based rendering for this starter app.
+      Original reflections and study notes provided for personal devotional use.
     </footer>
   </main>
 

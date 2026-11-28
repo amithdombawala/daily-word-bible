@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1e382d" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#164232" />
   <meta name="description" content="Daily Bible verse in Sinhala and English, with meaning and related verses." />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
@@ -12,109 +12,116 @@
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg: #f1e8d5;
-      --bg-warm: #e4d5b7;
-      --ink: #1b2c23;
-      --muted: #4f5e55;
-      --green: #1e382d;
-      --green-deep: #12241c;
-      --gold: #c99c4e;
-      --gold-soft: #f0d39c;
-      --card: rgba(255, 254, 250, 0.94);
-      --card-soft: rgba(247, 243, 232, 0.94);
-      --line: rgba(30, 56, 45, 0.12);
-      --shadow: 0 14px 34px rgba(20, 37, 29, 0.08);
+      --bg-top: #e7f3ec;
+      --bg-mid: #d7eadf;
+      --bg-bot: #c4e0d0;
+      --ink: #0f291e;
+      --muted: #3b5e4d;
+      --green-dark: #0f3325;
+      --green-main: #184e39;
+      --green-mid: #23694d;
+      --green-light: #a7d7be;
+      --green-tint: #eef7f1;
+      --surface: #ffffff;
+      --surface-soft: #f3faf5;
+      --line: #cce2d5;
+      --shadow: 0 10px 26px rgba(15, 51, 37, 0.08);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
+    html,
     body {
       margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 78% 12%, rgba(242, 196, 110, 0.36), transparent 36%),
-        radial-gradient(circle at 18% 88%, rgba(69, 108, 86, 0.22), transparent 45%),
-        linear-gradient(165deg, var(--bg) 0%, var(--bg-warm) 58%, #d7c5a3 100%);
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bot) 100%);
       color: var(--ink);
       font-family: 'DM Sans', 'Noto Sans Sinhala', sans-serif;
     }
 
     .wrap {
+      width: 100%;
       max-width: 780px;
-      margin: auto;
-      padding: 28px 18px 52px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
     }
 
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
-      background: var(--card);
+      gap: 12px;
+      margin-bottom: 18px;
+      background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 12px 16px;
+      border-radius: 18px;
+      padding: 12px 14px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
+      min-width: 0;
     }
 
     .logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: linear-gradient(145deg, #274739, var(--green-deep));
-      color: var(--gold-soft);
-      border: 1px solid rgba(240, 211, 156, 0.35);
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(145deg, var(--green-mid), var(--green-dark));
+      color: #dff7ea;
       display: grid;
       place-items: center;
-      font-size: 23px;
-      box-shadow: 0 6px 16px rgba(19, 37, 29, 0.22);
+      font-size: 22px;
+      flex-shrink: 0;
     }
 
     .brand-title {
       font-weight: 700;
-      letter-spacing: 0.2px;
-      color: var(--ink);
       font-size: 16px;
+      color: var(--green-dark);
+      line-height: 1.25;
     }
 
     .brand-sub {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12.5px;
       margin-top: 2px;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
+      line-height: 1.35;
     }
 
     .date-pill {
-      background: #faf7ef;
-      border: 1px solid rgba(30, 56, 45, 0.16);
-      padding: 9px 14px;
+      background: var(--green-tint);
+      border: 1px solid var(--line);
+      padding: 8px 12px;
       border-radius: 999px;
-      color: var(--ink);
-      font-weight: 500;
-      font-size: 12px;
+      color: var(--green-main);
+      font-weight: 600;
+      font-size: 11.5px;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .hero {
-      border-radius: 28px;
-      padding: 34px 28px 28px;
-      color: #fbf9f2;
+      border-radius: 24px;
+      padding: 26px 22px;
+      color: #f5fbf7;
       background:
-        radial-gradient(circle at 84% 28%, rgba(244, 198, 112, 0.28), transparent 36%),
-        radial-gradient(circle at 15% 90%, rgba(82, 128, 101, 0.2), transparent 45%),
-        linear-gradient(135deg, rgba(14, 30, 23, 0.95) 0%, rgba(22, 44, 34, 0.90) 58%, rgba(15, 31, 24, 0.96) 100%);
+        radial-gradient(circle at 88% 15%, rgba(125, 211, 168, 0.24), transparent 42%),
+        radial-gradient(circle at 12% 90%, rgba(52, 138, 102, 0.35), transparent 48%),
+        linear-gradient(140deg, #0d2b1f 0%, #164734 55%, #1e5c43 100%);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 22px 46px rgba(18, 34, 27, 0.24);
-      border: 1px solid rgba(240, 211, 156, 0.28);
+      box-shadow: 0 16px 36px rgba(13, 43, 31, 0.2);
+      border: 1px solid rgba(167, 215, 190, 0.28);
     }
 
     .hero-scene {
@@ -137,29 +144,27 @@
     }
 
     .eyebrow {
-      color: var(--gold-soft);
+      color: #b7ebd0;
       text-transform: uppercase;
-      letter-spacing: 2.2px;
+      letter-spacing: 2px;
       font-size: 11px;
       font-weight: 700;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
     }
 
     h1 {
-      font-size: clamp(24px, 4vw, 34px);
-      margin: 9px 0 20px;
+      font-size: clamp(22px, 4.2vw, 32px);
+      margin: 8px 0 16px;
       font-weight: 700;
       line-height: 1.35;
-      color: #fffdf8;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+      color: #ffffff;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
     }
 
     .ref {
       display: inline-block;
-      color: var(--gold-soft);
-      background: rgba(15, 29, 22, 0.65);
-      border: 1px solid rgba(240, 211, 156, 0.34);
+      color: #d6f7e6;
+      background: rgba(10, 34, 24, 0.62);
+      border: 1px solid rgba(167, 215, 190, 0.35);
       padding: 5px 12px;
       border-radius: 999px;
       font-weight: 600;
@@ -168,31 +173,29 @@
     }
 
     .verse {
-      font-size: 21px;
+      font-size: 19.5px;
       line-height: 1.9;
-      margin: 0 0 18px;
-      max-width: 640px;
+      margin: 0 0 16px;
       color: #ffffff;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
+      word-wrap: break-word;
     }
 
     .english {
-      border-top: 1px solid rgba(255, 255, 255, 0.24);
-      padding-top: 16px;
-      font-size: 17px;
+      border-top: 1px solid rgba(183, 235, 208, 0.25);
+      padding-top: 14px;
+      font-size: 16px;
       line-height: 1.7;
-      color: #f3f7f4;
+      color: #e4f6ec;
       font-style: italic;
-      max-width: 640px;
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+      word-wrap: break-word;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 24px;
+      margin-top: 22px;
     }
 
     button {
@@ -202,42 +205,43 @@
       border-radius: 12px;
       padding: 11px 16px;
       font-weight: 600;
-      transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
-    button:active { transform: scale(0.98); }
+    button:active {
+      transform: scale(0.98);
+    }
 
     .primary {
-      background: linear-gradient(135deg, #ebd09c, #d7ae63);
-      color: #182c23;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      background: #9ee0be;
+      color: #0b261b;
     }
 
     .ghost {
-      background: rgba(18, 34, 27, 0.65);
-      color: #fbf9f2;
-      border: 1px solid rgba(240, 211, 156, 0.35);
-      backdrop-filter: blur(6px);
+      background: rgba(11, 38, 27, 0.65);
+      color: #f3fbf7;
+      border: 1px solid rgba(167, 215, 190, 0.38);
     }
 
     .section {
-      margin-top: 18px;
-      background: var(--card);
+      margin-top: 16px;
+      background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 22px 24px;
+      border-radius: 20px;
+      padding: 20px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
+      overflow: hidden;
     }
 
     .section h2 {
-      margin: 0 0 14px;
-      font-size: 18px;
-      color: var(--ink);
+      margin: 0 0 12px;
+      font-size: 17.5px;
+      color: var(--green-dark);
       display: flex;
       align-items: center;
       gap: 8px;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
+      line-height: 1.45;
     }
 
     .section h2::before {
@@ -245,20 +249,21 @@
       width: 5px;
       height: 18px;
       border-radius: 999px;
-      background: linear-gradient(180deg, var(--gold), var(--green));
-      display: inline-block;
+      background: linear-gradient(180deg, #2b8a62, #0f3325);
+      flex-shrink: 0;
     }
 
     .section p {
       margin: 0;
       line-height: 1.9;
-      font-size: 15.5px;
+      font-size: 15px;
       color: var(--ink);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
+      word-wrap: break-word;
     }
 
     .english-meaning {
-      margin-top: 12px !important;
+      margin-top: 10px !important;
       color: var(--muted) !important;
       font-family: 'DM Sans', sans-serif !important;
     }
@@ -270,15 +275,16 @@
     }
 
     .related-item {
-      border: 1px solid rgba(30, 56, 45, 0.12);
-      border-radius: 16px;
-      padding: 14px;
-      background: var(--card-soft);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 13px;
+      background: var(--surface-soft);
+      min-width: 0;
     }
 
     .related-item strong {
       display: block;
-      color: #846024;
+      color: var(--green-main);
       margin-bottom: 6px;
       font-size: 14px;
     }
@@ -291,28 +297,27 @@
     }
 
     .reflection {
-      background: #f4efe3;
-      border: 1px solid rgba(30, 56, 45, 0.1);
-      border-radius: 16px;
-      padding: 16px;
-      margin-top: 10px;
+      background: var(--green-tint);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 14px;
     }
 
     .reflection label {
       display: block;
       font-weight: 700;
       margin-bottom: 8px;
-      color: var(--ink);
+      color: var(--green-dark);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
     }
 
     textarea {
       width: 100%;
-      min-height: 96px;
-      border: 1px solid rgba(30, 56, 45, 0.2);
+      min-height: 94px;
+      border: 1px solid #b5d5c3;
       border-radius: 12px;
-      padding: 12px 14px;
-      background: #ffffff;
+      padding: 12px;
+      background: var(--surface);
       color: var(--ink);
       resize: vertical;
       font: inherit;
@@ -320,36 +325,42 @@
     }
 
     textarea:focus {
-      outline: 2px solid rgba(201, 156, 78, 0.55);
-      border-color: var(--gold);
+      outline: 2px solid rgba(35, 105, 77, 0.35);
+      border-color: var(--green-mid);
     }
 
     .reflection button {
       margin-top: 10px;
-      background: linear-gradient(135deg, #244235, var(--green-deep));
-      color: #fffdf8;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
+      color: #ffffff;
     }
 
-    .saved { margin-top: 18px; }
-    .saved-list { display: grid; gap: 10px; }
+    .saved {
+      margin-top: 16px;
+    }
+
+    .saved-list {
+      display: grid;
+      gap: 10px;
+    }
 
     .saved-entry {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      background: var(--card-soft);
+      background: var(--surface-soft);
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 13px 14px;
+      padding: 12px 14px;
       font-size: 14px;
       line-height: 1.7;
       color: var(--ink);
     }
 
     .saved-entry button {
-      background: #e8e2d3;
-      color: var(--ink);
+      background: #dff0e6;
+      color: var(--green-dark);
       padding: 8px 12px;
       font-size: 12px;
       flex-shrink: 0;
@@ -358,39 +369,60 @@
     footer {
       text-align: center;
       color: var(--muted);
-      font-size: 12.5px;
-      padding: 28px 8px 0;
+      font-size: 12px;
+      padding: 24px 8px 12px;
       line-height: 1.75;
     }
 
     .toast {
       position: fixed;
       left: 50%;
-      bottom: 22px;
+      bottom: 20px;
       transform: translateX(-50%);
-      background: var(--green-deep);
-      color: #fffdf8;
-      border: 1px solid rgba(240, 211, 156, 0.3);
-      padding: 11px 18px;
+      background: var(--green-dark);
+      color: #ffffff;
+      border: 1px solid rgba(167, 215, 190, 0.35);
+      padding: 10px 16px;
       border-radius: 12px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease;
-      z-index: 10;
-      font-size: 14px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+      z-index: 20;
+      font-size: 13.5px;
+      max-width: 90vw;
+      text-align: center;
     }
 
-    .toast.show { opacity: 1; }
+    .toast.show {
+      opacity: 1;
+    }
 
-    @media (max-width: 520px) {
-      .wrap { padding: 18px 13px 40px; }
-      header { padding: 10px 12px; gap: 10px; }
-      .hero { padding: 26px 19px; border-radius: 22px; }
-      .verse { font-size: 18.5px; }
-      .related { grid-template-columns: 1fr; }
-      .date-pill { font-size: 10.5px; padding: 8px 10px; }
-      .section { padding: 18px; border-radius: 18px; }
+    @media (max-width: 560px) {
+      .wrap {
+        padding: 14px 12px 36px;
+      }
+      header {
+        flex-wrap: wrap;
+        padding: 10px 12px;
+      }
+      .date-pill {
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+      .hero {
+        padding: 22px 17px;
+        border-radius: 20px;
+      }
+      .verse {
+        font-size: 18px;
+      }
+      .related {
+        grid-template-columns: 1fr;
+      }
+      .section {
+        padding: 16px;
+        border-radius: 16px;
+      }
     }
   </style>
 </head>
@@ -410,26 +442,15 @@
     <article class="hero">
       <svg class="hero-scene" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <defs>
-          <radialGradient id="sunriseGlow" cx="78%" cy="32%" r="48%">
-            <stop offset="0%" stop-color="#f5c976" stop-opacity="0.28" />
-            <stop offset="55%" stop-color="#c99c4e" stop-opacity="0.08" />
-            <stop offset="100%" stop-color="#14281f" stop-opacity="0" />
+          <radialGradient id="greenLightGlow" cx="78%" cy="30%" r="50%">
+            <stop offset="0%" stop-color="#9ee0be" stop-opacity="0.24" />
+            <stop offset="60%" stop-color="#2b8a62" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#0d2b1f" stop-opacity="0" />
           </radialGradient>
         </defs>
-        <rect width="800" height="420" fill="url(#sunriseGlow)" />
-        <!-- Soft sunrise rays -->
-        <g stroke="#f0d39c" stroke-opacity="0.11" stroke-width="2">
-          <line x1="624" y1="135" x2="430" y2="25" />
-          <line x1="624" y1="135" x2="495" y2="10" />
-          <line x1="624" y1="135" x2="575" y2="5" />
-          <line x1="624" y1="135" x2="665" y2="5" />
-          <line x1="624" y1="135" x2="745" y2="20" />
-          <line x1="624" y1="135" x2="800" y2="65" />
-        </g>
-        <!-- Gentle hill silhouette -->
-        <path d="M0 365 Q230 315 470 355 T800 325 L800 420 L0 420 Z" fill="#0d1d16" fill-opacity="0.45" />
-        <!-- Subtle Christian cross on the hill -->
-        <g fill="#f0d39c" fill-opacity="0.14">
+        <rect width="800" height="420" fill="url(#greenLightGlow)" />
+        <path d="M0 365 Q240 315 480 355 T800 325 L800 420 L0 420 Z" fill="#091f16" fill-opacity="0.42" />
+        <g fill="#b7ebd0" fill-opacity="0.14">
           <rect x="652" y="168" width="12" height="156" rx="4" />
           <rect x="622" y="206" width="72" height="12" rx="4" />
         </g>

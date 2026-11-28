@@ -1,487 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#19382a" />
-  <meta name="description" content="Daily Bible verse reflection in Sinhala and English, with meaning and related verses." />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <title>Daily Word | දිනපතා දේව වචනය</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
-
-    :root {
-      --bg: #f5f2eb;
-      --ink: #182620;
-      --muted: #56655d;
-      --green: #19382a;
-      --green-deep: #0f241a;
-      --green-soft: #27523e;
-      --gold: #c89b4b;
-      --gold-light: #ebd09c;
-      --card: #ffffff;
-      --card-soft: #faf8f3;
-      --line: #e3ddd0;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'DM Sans', 'Noto Sans Sinhala', sans-serif;
-    }
-
-    .wrap {
-      width: 100%;
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    /* Old cross logo in 3D style */
-    .logo-btn {
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      border-radius: 15px;
-      background: linear-gradient(155deg, #2d6148 0%, var(--green) 58%, var(--green-deep) 100%);
-      color: var(--gold-light);
-      display: grid;
-      place-items: center;
-      font-size: 24px;
-      line-height: 1;
-      flex-shrink: 0;
-      border: 1px solid rgba(235, 208, 156, 0.36);
-      border-top: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow:
-        0 4px 0 #0a1912,
-        0 9px 18px rgba(24, 38, 32, 0.24),
-        inset 0 1px 1px rgba(255, 255, 255, 0.25);
-      text-shadow:
-        0 2px 3px rgba(0, 0, 0, 0.5),
-        0 -1px 1px rgba(255, 248, 224, 0.35);
-    }
-
-    .logo-btn:active {
-      transform: translateY(2px);
-      box-shadow:
-        0 2px 0 #0a1912,
-        0 4px 10px rgba(24, 38, 32, 0.2);
-    }
-
-    .brand-title {
-      font-weight: 700;
-      color: var(--green);
-      font-size: 16px;
-      line-height: 1.25;
-    }
-
-    .brand-sub {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 2px;
-      font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      line-height: 1.35;
-    }
-
-    .date-pill {
-      background: var(--card);
-      border: 1px solid var(--line);
-      padding: 8px 13px;
-      border-radius: 999px;
-      color: var(--muted);
-      font-size: 12px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .hero {
-      background: linear-gradient(155deg, var(--green-soft) 0%, var(--green) 100%);
-      color: #f8f6f0;
-      border-radius: 24px;
-      padding: 28px 22px;
-      border: 1px solid rgba(200, 155, 75, 0.28);
-    }
-
-    .eyebrow {
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: 2.2px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    h1 {
-      font-size: clamp(24px, 4vw, 33px);
-      margin: 8px 0 16px;
-      font-weight: 700;
-      line-height: 1.35;
-      color: #ffffff;
-      font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-    }
-
-    .ref {
-      display: inline-block;
-      color: var(--gold-light);
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(235, 208, 156, 0.28);
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
-
-    .verse {
-      font-size: 20px;
-      line-height: 1.9;
-      margin: 0 0 16px;
-      color: #ffffff;
-      font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      word-wrap: break-word;
-    }
-
-    .english {
-      border-top: 1px solid rgba(255, 255, 255, 0.16);
-      padding-top: 14px;
-      font-size: 16.5px;
-      line-height: 1.7;
-      color: #e6efe9;
-      font-style: italic;
-      word-wrap: break-word;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    button {
-      font: inherit;
-      cursor: pointer;
-      border: 0;
-      border-radius: 12px;
-      padding: 11px 16px;
-      font-weight: 600;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-
-    button:active {
-      transform: scale(0.98);
-    }
-
-    .primary {
-      background: var(--gold-light);
-      color: var(--ink);
-    }
-
-    .ghost {
-      background: rgba(255, 255, 255, 0.1);
-      color: #f8f6f0;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-    }
-
-    .section {
-      margin-top: 16px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 20px;
-      overflow: hidden;
-    }
-
-    .section h2 {
-      margin: 0 0 12px;
-      font-size: 18px;
-      color: var(--green);
-      font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      line-height: 1.45;
-      padding-left: 10px;
-      border-left: 3px solid var(--gold);
-    }
-
-    .section p {
-      margin: 0;
-      line-height: 1.9;
-      font-size: 15px;
-      color: var(--ink);
-      font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      word-wrap: break-word;
-    }
-
-    .english-meaning {
-      margin-top: 10px !important;
-      color: var(--muted) !important;
-      font-family: 'DM Sans', sans-serif !important;
-    }
-
-    #novemberList .nov-verse-button,
-    .nov-verse-button {
-      display: block !important;
-      width: 100% !important;
-      text-align: left !important;
-      background: var(--card-soft) !important;
-      color: var(--ink) !important;
-      border: 1px solid var(--line) !important;
-      border-left: 3px solid var(--green) !important;
-      border-radius: 12px !important;
-      padding: 12px 14px !important;
-      margin-bottom: 8px !important;
-      font-weight: 600 !important;
-      font-size: 14px !important;
-      line-height: 1.5 !important;
-    }
-
-    .nov-verse-button:hover {
-      background: #f2ede2 !important;
-      border-left-color: var(--gold) !important;
-    }
-
-    .related {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .related-item {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 13px;
-      background: var(--card-soft);
-      min-width: 0;
-    }
-
-    .related-item strong {
-      display: block;
-      color: #8f6a2c;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    .related-item span {
-      font-size: 13.5px;
-      line-height: 1.65;
-      color: var(--muted);
-      font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-    }
-
-    .reflection {
-      background: var(--card-soft);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .reflection label {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--green);
-      font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 94px;
-      border: 1px solid #d4cec0;
-      border-radius: 12px;
-      padding: 12px;
-      background: var(--card);
-      color: var(--ink);
-      resize: vertical;
-      font: inherit;
-      line-height: 1.75;
-    }
-
-    .reflection button {
-      margin-top: 10px;
-      background: var(--green);
-      color: #ffffff;
-    }
-
-    .saved {
-      margin-top: 16px;
-    }
-
-    .saved-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .saved-entry {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      background: var(--card-soft);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px 14px;
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--ink);
-    }
-
-    .saved-entry button {
-      background: #ece7dc;
-      color: var(--ink);
-      padding: 8px 12px;
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      padding: 24px 8px 12px;
-      line-height: 1.75;
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 20px;
-      transform: translateX(-50%);
-      background: var(--green);
-      color: #ffffff;
-      padding: 10px 16px;
-      border-radius: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-      z-index: 20;
-      font-size: 13.5px;
-      max-width: 90vw;
-      text-align: center;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
-
-    @media (max-width: 560px) {
-      .wrap {
-        padding: 14px 12px 38px;
-      }
-      header {
-        flex-wrap: wrap;
-      }
-      .date-pill {
-        font-size: 11px;
-        padding: 6px 10px;
-      }
-      .hero {
-        padding: 22px 17px;
-        border-radius: 20px;
-      }
-      .verse {
-        font-size: 18px;
-      }
-      .related {
-        grid-template-columns: 1fr;
-      }
-      .section {
-        padding: 16px;
-        border-radius: 16px;
-      }
-    }
-  </style>
+  <title>Daily Word</title>
 </head>
-<body>
-  <main class="wrap">
-    <header>
-      <div class="brand">
-        <button type="button" class="logo-btn" id="logoReload" title="Refresh Daily Word" aria-label="Refresh Daily Word">✝</button>
-        <div>
-          <div class="brand-title">Daily Word</div>
-          <div class="brand-sub">දිනපතා දේව වචනය</div>
-        </div>
-      </div>
-      <div class="date-pill" id="date"></div>
+<body style="margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#f5f2eb;color:#19382a;line-height:1.65;padding:20px 14px 64px;">
+  <main style="max-width:780px;margin:0 auto;">
+    <header style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h1 style="margin-top:0;">Daily Word</h1>
+      <div id="date" style="color:#647067;font-size:0.95rem;"></div>
     </header>
 
-    <article class="hero">
-      <div class="eyebrow">Today's scripture</div>
-      <h1>අද දවසේ දේව වචනය</h1>
-      <div class="ref" id="reference"></div>
-      <p class="verse" id="sinhala"></p>
-      <div class="english" id="english"></div>
-      <div class="hero-actions">
-        <button class="primary" id="share">↗ Share verse</button>
-        <button class="ghost" id="save">♡ Save verse</button>
-      </div>
-    </article>
-
-    <section class="section">
-      <h2>පදයේ තේරුම · Meaning</h2>
+    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;" aria-live="polite">
+      <h2 id="reference" style="margin-top:0;"></h2>
+      <p id="sinhala" style="font-size:1.1rem;font-weight:600;"></p>
+      <p id="english" style="color:#647067;font-style:italic;"></p>
       <p id="meaningSi"></p>
-      <p class="english-meaning" id="meaningEn"></p>
+      <p id="meaningEn" style="color:#647067;"></p>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+        <button type="button" id="save">Save Verse</button>
+        <button type="button" id="share">Share Verse</button>
+      </div>
     </section>
 
-    <section class="section">
-      <h2>November 2026 · දිනපතා බයිබල් පද</h2>
+    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;">Related Verses</h2>
+      <div id="related"></div>
+    </section>
+
+    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;">November 2026 Plan</h2>
       <div id="novemberList"></div>
     </section>
 
-    <section class="section">
-      <h2>සබැඳි පද · Related verses</h2>
-      <div class="related" id="related"></div>
+    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;">Personal Reflection</h2>
+      <textarea id="reflection" rows="4" placeholder="Write your reflection for this verse..." style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;"></textarea>
+      <button type="button" id="saveReflection">Save Reflection</button>
     </section>
 
-    <section class="section">
-      <h2>අද මෙනෙහි කරන්න · Reflect today</h2>
-      <div class="reflection">
-        <label for="reflection">ඔබගේ අදහස හෝ යාච්ඤාව</label>
-        <textarea id="reflection" placeholder="මෙම පදය අද ඔබට කතා කරන්නේ කෙසේද?"></textarea>
-        <button id="saveReflection">Save reflection</button>
+    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;">Saved Favorites</h2>
+      <div id="favorites"></div>
+    </section>
+
+    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;" id="adminSection">
+      <h2 style="margin-top:0;">Admin · .docx Verse Upload &amp; Auto Translate</h2>
+
+      <div id="adminLoginSection">
+        <label for="adminEmail">Admin Email</label>
+        <input type="email" id="adminEmail" placeholder="admin@dailyword.app" autocomplete="username" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
+
+        <label for="adminPassword">Admin Password</label>
+        <input type="password" id="adminPassword" placeholder="Enter password" autocomplete="current-password" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
+
+        <button type="button" id="adminLoginBtn">Admin Login</button>
+      </div>
+
+      <div id="adminEditorSection" style="display:none;">
+        <div style="margin-bottom:14px;">
+          <button type="button" id="adminLogoutBtn">Logout</button>
+        </div>
+
+        <label for="docxFileInput">Upload Sinhala Verses (.docx)</label>
+        <input type="file" id="docxFileInput" accept=".docx" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
+
+        <div id="docxPreviewBox" style="margin-bottom:12px;font-size:0.9rem;color:#647067;"></div>
+
+        <button type="button" id="publishDocxBtn">Translate &amp; Publish</button>
+
+        <h3 style="margin-top:20px;">Published Custom Verses</h3>
+        <div id="customVersesList"></div>
       </div>
     </section>
-
-    <section class="section saved">
-      <h2>♡ ඔබ සුරැකි පද · Favorites</h2>
-      <div class="saved-list" id="favorites"></div>
-    </section>
-
-    <footer>
-      Daily Word · A simple daily moment with God's Word<br>
-      Original reflections and study notes provided for personal devotional use.
-    </footer>
   </main>
 
-  <div class="toast" id="toast"></div>
-  <script>
-    document.getElementById('logoReload')?.addEventListener('click', () => {
-      window.location.reload();
-    });
-  </script>
+  <div id="toast" role="status" aria-live="polite" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#19382a;color:#f5f2eb;padding:10px 18px;border-radius:999px;display:none;z-index:999;"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

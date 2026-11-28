@@ -45,16 +45,16 @@ function ensureThemeAndButtonShineKeyframes() {
   const styleEl = document.createElement("style");
   styleEl.textContent = `
     @keyframes dailywordBtnGloss {
-      0% { transform: translateX(-145%) skewX(-24deg); opacity: 0; }
-      22% { opacity: 0.72; }
-      55% { opacity: 0.85; }
-      100% { transform: translateX(265%) skewX(-24deg); opacity: 0; }
+      0% { transform: translateX(-150%) skewX(-24deg); opacity: 0; }
+      20% { opacity: 0.8; }
+      55% { opacity: 0.92; }
+      100% { transform: translateX(270%) skewX(-24deg); opacity: 0; }
     }
     @keyframes dailywordCardGloss {
-      0% { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+      0% { transform: translateX(-125%) skewX(-20deg); opacity: 0; }
       25% { opacity: 0.35; }
       55% { opacity: 0.42; }
-      100% { transform: translateX(240%) skewX(-20deg); opacity: 0; }
+      100% { transform: translateX(245%) skewX(-20deg); opacity: 0; }
     }
   `;
   document.head.appendChild(styleEl);
@@ -85,12 +85,55 @@ function applyThemeCardShine() {
   });
 }
 
-// variant: 'forest' (#19382a) | 'ivory' (#f5f2eb / #efe9dc)
-function apply3DButtonStyle(btn, variant = "forest") {
+const BUTTON_THEMES = {
+  forest: {
+    bg: "linear-gradient(180deg, #2a6349 0%, #19382a 60%, #10251c 100%)",
+    color: "#f5f2eb",
+    border: "1px solid #0e2018",
+    lip: "#0a1711",
+    glow: "rgba(25, 56, 42, 0.30)",
+    shine: "linear-gradient(90deg, transparent, rgba(245, 242, 235, 0.42), transparent)"
+  },
+  gold: {
+    bg: "linear-gradient(180deg, #c78632 0%, #9b641d 60%, #734812 100%)",
+    color: "#fff9ee",
+    border: "1px solid #633d0e",
+    lip: "#4c2e09",
+    glow: "rgba(155, 100, 29, 0.32)",
+    shine: "linear-gradient(90deg, transparent, rgba(255, 249, 232, 0.55), transparent)"
+  },
+  sage: {
+    bg: "linear-gradient(180deg, #eef6f0 0%, #d8e9de 62%, #c3dacb 100%)",
+    color: "#19382a",
+    border: "1px solid #9ab8a6",
+    lip: "#2d5944",
+    glow: "rgba(25, 56, 42, 0.14)",
+    shine: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent)"
+  },
+  champagne: {
+    bg: "linear-gradient(180deg, #fbf5e8 0%, #efe2c6 62%, #e2cfa8 100%)",
+    color: "#19382a",
+    border: "1px solid #cbb488",
+    lip: "#8c6528",
+    glow: "rgba(140, 101, 40, 0.16)",
+    shine: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.88), transparent)"
+  },
+  crimson: {
+    bg: "linear-gradient(180deg, #c84652 0%, #9e2b36 62%, #761d26 100%)",
+    color: "#fff5f6",
+    border: "1px solid #63161e",
+    lip: "#4a0f15",
+    glow: "rgba(158, 43, 54, 0.28)",
+    shine: "linear-gradient(90deg, transparent, rgba(255, 240, 242, 0.45), transparent)"
+  }
+};
+
+// palette: 'forest' | 'gold' | 'sage' | 'champagne' | 'crimson'
+function apply3DButtonStyle(btn, palette = "forest") {
   if (!btn) return;
   ensureThemeAndButtonShineKeyframes();
 
-  const isForest = variant === "forest";
+  const p = BUTTON_THEMES[palette] || BUTTON_THEMES.forest;
 
   btn.style.position = "relative";
   btn.style.overflow = "hidden";
@@ -99,25 +142,13 @@ function apply3DButtonStyle(btn, variant = "forest") {
   btn.style.borderRadius = "15px";
   btn.style.padding = "13px 18px";
   btn.style.cursor = "pointer";
+  btn.style.background = p.bg;
+  btn.style.color = p.color;
+  btn.style.border = p.border;
   btn.style.transition = "transform 0.12s ease, box-shadow 0.12s ease";
 
-  const restShadow = isForest
-    ? "inset 0 2px 1px rgba(245, 242, 235, 0.26), inset 0 -3px 6px rgba(10, 24, 18, 0.42), 0 7px 0 #0c1d15, 0 14px 24px rgba(25, 56, 42, 0.28)"
-    : "inset 0 2px 1px rgba(255, 255, 255, 0.95), inset 0 -3px 5px rgba(25, 56, 42, 0.14), 0 7px 0 #19382a, 0 14px 22px rgba(25, 56, 42, 0.16)";
-
-  const pressShadow = isForest
-    ? "inset 0 3px 7px rgba(0, 0, 0, 0.48), 0 2px 0 #0c1d15, 0 5px 10px rgba(25, 56, 42, 0.18)"
-    : "inset 0 3px 7px rgba(25, 56, 42, 0.25), 0 2px 0 #19382a, 0 5px 10px rgba(25, 56, 42, 0.12)";
-
-  if (isForest) {
-    btn.style.background = "linear-gradient(180deg, #275641 0%, #19382a 62%, #11271d 100%)";
-    btn.style.color = "#f5f2eb";
-    btn.style.border = "1px solid #10241b";
-  } else {
-    btn.style.background = "linear-gradient(180deg, #faf8f2 0%, #efe9dc 60%, #e3dac8 100%)";
-    btn.style.color = "#19382a";
-    btn.style.border = "1px solid #19382a";
-  }
+  const restShadow = `inset 0 2px 1px rgba(255, 255, 255, 0.42), inset 0 -3px 6px rgba(0, 0, 0, 0.22), 0 7px 0 ${p.lip}, 0 14px 24px ${p.glow}`;
+  const pressShadow = `inset 0 3px 7px rgba(0, 0, 0, 0.42), 0 2px 0 ${p.lip}, 0 5px 10px ${p.glow}`;
 
   btn.style.boxShadow = restShadow;
 
@@ -130,9 +161,7 @@ function apply3DButtonStyle(btn, variant = "forest") {
     shine.style.width = "48%";
     shine.style.height = "140%";
     shine.style.pointerEvents = "none";
-    shine.style.background = isForest
-      ? "linear-gradient(90deg, transparent, rgba(245, 242, 235, 0.34), transparent)"
-      : "linear-gradient(90deg, transparent, rgba(25, 56, 42, 0.14), rgba(255, 255, 255, 0.7), transparent)";
+    shine.style.background = p.shine;
     shine.style.animation = "dailywordBtnGloss 2.8s ease-in-out infinite";
     btn.appendChild(shine);
   }
@@ -269,7 +298,7 @@ function displayVerse(verse) {
     `).join('');
 
     relatedEl.querySelectorAll('.related-verse-button').forEach(button => {
-      apply3DButtonStyle(button, "ivory");
+      apply3DButtonStyle(button, "champagne");
       button.addEventListener('click', () => {
         const verseText = button.nextElementSibling;
         const isHidden = verseText.style.display === 'none';
@@ -346,7 +375,7 @@ if (novemberList) {
 
   novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
     const isTodayBtn = Number(button.dataset.day) === currentNovDay;
-    apply3DButtonStyle(button, isTodayBtn ? "forest" : "ivory");
+    apply3DButtonStyle(button, isTodayBtn ? "gold" : "sage");
 
     button.addEventListener('click', () => {
       const verse = novPlan[Number(button.dataset.index)];
@@ -401,7 +430,7 @@ function renderFavorites() {
   `).join('');
 
   element.querySelectorAll('button').forEach(button => {
-    apply3DButtonStyle(button, "forest");
+    apply3DButtonStyle(button, "crimson");
     button.addEventListener('click', () => {
       const updated = getFavorites().filter(
         verse => verse.ref !== button.dataset.ref
@@ -562,8 +591,7 @@ async function loadReflectionHistory() {
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
       deleteButton.textContent = 'Delete';
-      apply3DButtonStyle(deleteButton, "forest");
-      deleteButton.style.background = "linear-gradient(180deg, #b83b46 0%, #8f242e 100%)";
+      apply3DButtonStyle(deleteButton, "crimson");
 
       deleteButton.addEventListener('click', async () => {
         try {
@@ -674,7 +702,7 @@ function renderCustomVersesManagerList() {
   `).join('');
 
   container.querySelectorAll('.delete-custom-verse-btn').forEach(btn => {
-    apply3DButtonStyle(btn, "forest");
+    apply3DButtonStyle(btn, "crimson");
     btn.addEventListener('click', async () => {
       const docId = btn.dataset.id;
       if (!docId) return;

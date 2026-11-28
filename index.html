@@ -63,17 +63,22 @@
     }
 
     .logo-btn {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       padding: 0;
       border-radius: 14px;
-      background: var(--green);
-      color: var(--gold-light);
+      background: #143f1a;
       display: grid;
       place-items: center;
-      font-size: 21px;
       flex-shrink: 0;
-      border: 1px solid rgba(200, 155, 75, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 4px 12px rgba(20, 63, 26, 0.22);
+    }
+
+    .logo-btn svg {
+      width: 34px;
+      height: 34px;
+      display: block;
     }
 
     .brand-title {
@@ -401,7 +406,24 @@
   <main class="wrap">
     <header>
       <div class="brand">
-        <button type="button" class="logo-btn" id="logoReload" title="Refresh Daily Word" aria-label="Refresh Daily Word">✝</button>
+        <button type="button" class="logo-btn" id="logoReload" title="Refresh Daily Word" aria-label="Refresh Daily Word">
+          <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+            <path
+              d="M16 34C32 25 49 26 60 35C71 26 88 25 104 34V86C88 78 71 79 60 89C49 79 32 78 16 86V34Z"
+              stroke="#ffffff"
+              stroke-width="6.5"
+              stroke-linejoin="round"
+            />
+            <path d="M60 35V89" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" />
+            <path
+              d="M53 16H67V42H88V56H67V96H53V56H32V42H53V16Z"
+              fill="#143f1a"
+              stroke="#ffffff"
+              stroke-width="6"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
         <div>
           <div class="brand-title">Daily Word</div>
           <div class="brand-sub">දිනපතා දේව වචනය</div>

@@ -38,25 +38,59 @@ const CUSTOM_VERSES_CACHE_KEY = "dailyword-custom-verses-cache";
 
 let shineAnimationReady = false;
 
-function ensureButtonShineKeyframes() {
+function ensureThemeAndButtonShineKeyframes() {
   if (shineAnimationReady) return;
   shineAnimationReady = true;
 
   const styleEl = document.createElement("style");
   styleEl.textContent = `
-    @keyframes dailywordGlossSweep {
-      0% { transform: translateX(-140%) skewX(-24deg); opacity: 0; }
-      20% { opacity: 0.75; }
+    @keyframes dailywordBtnGloss {
+      0% { transform: translateX(-145%) skewX(-24deg); opacity: 0; }
+      22% { opacity: 0.72; }
       55% { opacity: 0.85; }
-      100% { transform: translateX(260%) skewX(-24deg); opacity: 0; }
+      100% { transform: translateX(265%) skewX(-24deg); opacity: 0; }
+    }
+    @keyframes dailywordCardGloss {
+      0% { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+      25% { opacity: 0.35; }
+      55% { opacity: 0.42; }
+      100% { transform: translateX(240%) skewX(-20deg); opacity: 0; }
     }
   `;
   document.head.appendChild(styleEl);
 }
 
-function apply3DButtonStyle(btn, isTodayHighlight = false) {
+function applyThemeCardShine() {
+  ensureThemeAndButtonShineKeyframes();
+
+  document.querySelectorAll(".dw-theme-card").forEach(card => {
+    card.style.position = "relative";
+    card.style.overflow = "hidden";
+    card.style.boxShadow = "0 10px 26px rgba(25, 56, 42, 0.08), inset 0 1px 0 rgba(245, 242, 235, 0.9)";
+
+    if (!card.querySelector(".dw-card-shine")) {
+      const sheen = document.createElement("span");
+      sheen.className = "dw-card-shine";
+      sheen.style.position = "absolute";
+      sheen.style.top = "-30%";
+      sheen.style.left = "0";
+      sheen.style.width = "38%";
+      sheen.style.height = "160%";
+      sheen.style.pointerEvents = "none";
+      sheen.style.background =
+        "linear-gradient(90deg, transparent, rgba(245, 242, 235, 0.65), rgba(148, 113, 60, 0.14), transparent)";
+      sheen.style.animation = "dailywordCardGloss 5.2s ease-in-out infinite";
+      card.appendChild(sheen);
+    }
+  });
+}
+
+// variant: 'forest' (#19382a) | 'ivory' (#f5f2eb / #efe9dc)
+function apply3DButtonStyle(btn, variant = "forest") {
   if (!btn) return;
-  ensureButtonShineKeyframes();
+  ensureThemeAndButtonShineKeyframes();
+
+  const isForest = variant === "forest";
 
   btn.style.position = "relative";
   btn.style.overflow = "hidden";
@@ -67,22 +101,22 @@ function apply3DButtonStyle(btn, isTodayHighlight = false) {
   btn.style.cursor = "pointer";
   btn.style.transition = "transform 0.12s ease, box-shadow 0.12s ease";
 
-  const restShadow = isTodayHighlight
-    ? "inset 0 2px 1px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 7px 0 #0a1812, 0 14px 24px rgba(25,56,42,0.32)"
-    : "inset 0 2px 1px rgba(255,255,255,0.98), inset 0 -3px 5px rgba(25,56,42,0.12), 0 7px 0 #9eb0a4, 0 14px 22px rgba(25,56,42,0.16)";
+  const restShadow = isForest
+    ? "inset 0 2px 1px rgba(245, 242, 235, 0.26), inset 0 -3px 6px rgba(10, 24, 18, 0.42), 0 7px 0 #0c1d15, 0 14px 24px rgba(25, 56, 42, 0.28)"
+    : "inset 0 2px 1px rgba(255, 255, 255, 0.95), inset 0 -3px 5px rgba(25, 56, 42, 0.14), 0 7px 0 #19382a, 0 14px 22px rgba(25, 56, 42, 0.16)";
 
-  const pressShadow = isTodayHighlight
-    ? "inset 0 3px 7px rgba(0,0,0,0.45), 0 2px 0 #0a1812, 0 5px 10px rgba(25,56,42,0.18)"
-    : "inset 0 3px 7px rgba(25,56,42,0.24), 0 2px 0 #9eb0a4, 0 5px 10px rgba(25,56,42,0.12)";
+  const pressShadow = isForest
+    ? "inset 0 3px 7px rgba(0, 0, 0, 0.48), 0 2px 0 #0c1d15, 0 5px 10px rgba(25, 56, 42, 0.18)"
+    : "inset 0 3px 7px rgba(25, 56, 42, 0.25), 0 2px 0 #19382a, 0 5px 10px rgba(25, 56, 42, 0.12)";
 
-  if (isTodayHighlight) {
-    btn.style.background = "linear-gradient(180deg, #2d624a 0%, #19382a 62%, #11271d 100%)";
+  if (isForest) {
+    btn.style.background = "linear-gradient(180deg, #275641 0%, #19382a 62%, #11271d 100%)";
     btn.style.color = "#f5f2eb";
-    btn.style.border = "1px solid #0e2018";
+    btn.style.border = "1px solid #10241b";
   } else {
-    btn.style.background = "linear-gradient(180deg, #ffffff 0%, #f3eee2 58%, #e4dccb 100%)";
+    btn.style.background = "linear-gradient(180deg, #faf8f2 0%, #efe9dc 60%, #e3dac8 100%)";
     btn.style.color = "#19382a";
-    btn.style.border = "1px solid #becbc2";
+    btn.style.border = "1px solid #19382a";
   }
 
   btn.style.boxShadow = restShadow;
@@ -96,10 +130,10 @@ function apply3DButtonStyle(btn, isTodayHighlight = false) {
     shine.style.width = "48%";
     shine.style.height = "140%";
     shine.style.pointerEvents = "none";
-    shine.style.background = isTodayHighlight
-      ? "linear-gradient(90deg, transparent, rgba(255,255,255,0.34), transparent)"
-      : "linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent)";
-    shine.style.animation = "dailywordGlossSweep 2.8s ease-in-out infinite";
+    shine.style.background = isForest
+      ? "linear-gradient(90deg, transparent, rgba(245, 242, 235, 0.34), transparent)"
+      : "linear-gradient(90deg, transparent, rgba(25, 56, 42, 0.14), rgba(255, 255, 255, 0.7), transparent)";
+    shine.style.animation = "dailywordBtnGloss 2.8s ease-in-out infinite";
     btn.appendChild(shine);
   }
 
@@ -120,7 +154,7 @@ function apply3DButtonStyle(btn, isTodayHighlight = false) {
 function decorateStaticButtons() {
   document.querySelectorAll("button").forEach(btn => {
     if (!btn.classList.contains("nov-verse-button")) {
-      apply3DButtonStyle(btn, true);
+      apply3DButtonStyle(btn, "forest");
     }
   });
 }
@@ -225,17 +259,17 @@ function displayVerse(verse) {
         <button type="button"
           class="related-verse-button"
           data-related-index="${index}"
-          style="display:block;width:100%;text-align:left;padding:10px;color:#94713c;">
+          style="display:block;width:100%;text-align:left;padding:12px 14px;">
           ${ref} — සම්පූර්ණ පදය බලන්න
         </button>
-        <div style="display:none;margin-top:10px;line-height:1.8;color:#647067;">
+        <div style="display:none;margin-top:10px;line-height:1.8;color:#4b6356;">
           ${desc}
         </div>
       </div>
     `).join('');
 
     relatedEl.querySelectorAll('.related-verse-button').forEach(button => {
-      apply3DButtonStyle(button, false);
+      apply3DButtonStyle(button, "ivory");
       button.addEventListener('click', () => {
         const verseText = button.nextElementSibling;
         const isHidden = verseText.style.display === 'none';
@@ -272,7 +306,7 @@ if (novemberList) {
   verseDetail.style.display = 'none';
   verseDetail.style.padding = '18px';
   verseDetail.style.marginTop = '12px';
-  verseDetail.style.border = '1px solid #d8e2da';
+  verseDetail.style.border = '1px solid #c6d4ca';
   verseDetail.style.borderRadius = '12px';
 
   const verseTitle = document.createElement('h3');
@@ -283,7 +317,7 @@ if (novemberList) {
   const backButton = document.createElement('button');
   backButton.type = 'button';
   backButton.textContent = '← නැවත පද ලැයිස්තුවට';
-  apply3DButtonStyle(backButton, true);
+  apply3DButtonStyle(backButton, "forest");
   backButton.addEventListener('click', () => {
     verseDetail.style.display = 'none';
     novemberList.style.display = '';
@@ -312,7 +346,7 @@ if (novemberList) {
 
   novemberList.querySelectorAll('.nov-verse-button').forEach(button => {
     const isTodayBtn = Number(button.dataset.day) === currentNovDay;
-    apply3DButtonStyle(button, isTodayBtn);
+    apply3DButtonStyle(button, isTodayBtn ? "forest" : "ivory");
 
     button.addEventListener('click', () => {
       const verse = novPlan[Number(button.dataset.index)];
@@ -355,19 +389,19 @@ function renderFavorites() {
 
   if (!favorites.length) {
     element.innerHTML =
-      '<div style="color:#768078;font-size:13px">No saved verses yet.</div>';
+      '<div style="color:#4b6356;font-size:13px">No saved verses yet.</div>';
     return;
   }
 
   element.innerHTML = favorites.map(verse => `
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:#ffffff;border:1px solid #d8e2da;border-radius:12px;padding:12px;margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:#ffffff;border:1px solid #c6d4ca;border-radius:12px;padding:12px;margin-bottom:8px;">
       <span><strong>${verse.ref}</strong><br>${verse.si}</span>
       <button type="button" data-ref="${verse.ref}">Remove</button>
     </div>
   `).join('');
 
   element.querySelectorAll('button').forEach(button => {
-    apply3DButtonStyle(button, true);
+    apply3DButtonStyle(button, "forest");
     button.addEventListener('click', () => {
       const updated = getFavorites().filter(
         verse => verse.ref !== button.dataset.ref
@@ -516,7 +550,7 @@ async function loadReflectionHistory() {
       const entry = document.createElement('div');
       entry.style.padding = '12px';
       entry.style.margin = '8px 0';
-      entry.style.border = '1px solid #ddd';
+      entry.style.border = '1px solid #c6d4ca';
       entry.style.borderRadius = '8px';
 
       const heading = document.createElement('strong');
@@ -528,12 +562,8 @@ async function loadReflectionHistory() {
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
       deleteButton.textContent = 'Delete';
-      deleteButton.style.backgroundColor = '#dc3545';
-      deleteButton.style.color = 'white';
-      deleteButton.style.border = 'none';
-      deleteButton.style.padding = '8px 14px';
-      deleteButton.style.borderRadius = '5px';
-      deleteButton.style.cursor = 'pointer';
+      apply3DButtonStyle(deleteButton, "forest");
+      deleteButton.style.background = "linear-gradient(180deg, #b83b46 0%, #8f242e 100%)";
 
       deleteButton.addEventListener('click', async () => {
         try {
@@ -628,23 +658,23 @@ function renderCustomVersesManagerList() {
   if (!container) return;
 
   if (!customCloudVerses.length) {
-    container.innerHTML = '<div style="color:#768078;font-size:13px;">No admin-uploaded verses yet.</div>';
+    container.innerHTML = '<div style="color:#4b6356;font-size:13px;">No admin-uploaded verses yet.</div>';
     return;
   }
 
   container.innerHTML = customCloudVerses.map(item => `
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:#ffffff;border:1px solid #d8e2da;border-radius:12px;padding:12px;margin-top:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:#ffffff;border:1px solid #c6d4ca;border-radius:12px;padding:12px;margin-top:8px;">
       <span>
         <strong>${item.ref}</strong><br>
         ${item.si}<br>
-        <small style="color:#647067;">${item.en || ''}</small>
+        <small style="color:#4b6356;">${item.en || ''}</small>
       </span>
       <button type="button" class="delete-custom-verse-btn" data-id="${item.id}">Delete</button>
     </div>
   `).join('');
 
   container.querySelectorAll('.delete-custom-verse-btn').forEach(btn => {
-    apply3DButtonStyle(btn, true);
+    apply3DButtonStyle(btn, "forest");
     btn.addEventListener('click', async () => {
       const docId = btn.dataset.id;
       if (!docId) return;
@@ -788,6 +818,7 @@ function setupAdminPanel() {
   });
 }
 
+applyThemeCardShine();
 decorateStaticButtons();
 setupAdminPanel();
 startLiveCustomVersesSync();

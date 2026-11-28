@@ -63,22 +63,28 @@
       min-width: 0;
     }
 
-    /* 3D Raised Logo Button */
+    /* Old cross logo in 3D style */
     .logo-btn {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       padding: 0;
-      border-radius: 16px;
-      background: linear-gradient(155deg, #2e634a 0%, var(--green) 55%, var(--green-deep) 100%);
+      border-radius: 15px;
+      background: linear-gradient(155deg, #2d6148 0%, var(--green) 58%, var(--green-deep) 100%);
+      color: var(--gold-light);
       display: grid;
       place-items: center;
+      font-size: 24px;
+      line-height: 1;
       flex-shrink: 0;
-      border: 1px solid rgba(235, 208, 156, 0.35);
+      border: 1px solid rgba(235, 208, 156, 0.36);
       border-top: 1px solid rgba(255, 255, 255, 0.35);
       box-shadow:
         0 4px 0 #0a1912,
         0 9px 18px rgba(24, 38, 32, 0.24),
         inset 0 1px 1px rgba(255, 255, 255, 0.25);
+      text-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.5),
+        0 -1px 1px rgba(255, 248, 224, 0.35);
     }
 
     .logo-btn:active {
@@ -86,13 +92,6 @@
       box-shadow:
         0 2px 0 #0a1912,
         0 4px 10px rgba(24, 38, 32, 0.2);
-    }
-
-    .logo-btn svg {
-      width: 36px;
-      height: 36px;
-      display: block;
-      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
     }
 
     .brand-title {
@@ -420,44 +419,7 @@
   <main class="wrap">
     <header>
       <div class="brand">
-        <button type="button" class="logo-btn" id="logoReload" title="Refresh Daily Word" aria-label="Refresh Daily Word">
-          <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="bible3dGrad" x1="16" y1="24" x2="104" y2="92" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#ffffff" />
-                <stop offset="100%" stop-color="#dfeee6" />
-              </linearGradient>
-              <linearGradient id="cross3dGrad" x1="32" y1="14" x2="88" y2="98" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#fff8e8" />
-                <stop offset="100%" stop-color="#f2e4c4" />
-              </linearGradient>
-            </defs>
-            <!-- Open book 3D shadow -->
-            <path
-              d="M17 38C33 29 49 30 60 39C71 30 87 29 103 38V90C87 82 71 83 60 93C49 83 33 82 17 90V38Z"
-              fill="#091912"
-              fill-opacity="0.45"
-            />
-            <!-- Open book pages -->
-            <path
-              d="M16 34C32 25 49 26 60 35C71 26 88 25 104 34V86C88 78 71 79 60 89C49 79 32 78 16 86V34Z"
-              fill="url(#bible3dGrad)"
-              fill-opacity="0.16"
-              stroke="url(#bible3dGrad)"
-              stroke-width="6.5"
-              stroke-linejoin="round"
-            />
-            <path d="M60 35V89" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" />
-            <!-- 3D Cross -->
-            <path
-              d="M53 16H67V42H88V56H67V96H53V56H32V42H53V16Z"
-              fill="url(#cross3dGrad)"
-              stroke="#143f1a"
-              stroke-width="3.5"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+        <button type="button" class="logo-btn" id="logoReload" title="Refresh Daily Word" aria-label="Refresh Daily Word">✝</button>
         <div>
           <div class="brand-title">Daily Word</div>
           <div class="brand-sub">දිනපතා දේව වචනය</div>

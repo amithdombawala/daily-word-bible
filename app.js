@@ -36,42 +36,83 @@ const db = getFirestore(firebaseApp);
 const ADMIN_EMAILS = ["admin@dailyword.app"];
 const CUSTOM_VERSES_CACHE_KEY = "dailyword-custom-verses-cache";
 
+let shineAnimationReady = false;
+
+function ensureButtonShineKeyframes() {
+  if (shineAnimationReady) return;
+  shineAnimationReady = true;
+
+  const styleEl = document.createElement("style");
+  styleEl.textContent = `
+    @keyframes dailywordGlossSweep {
+      0% { transform: translateX(-140%) skewX(-24deg); opacity: 0; }
+      20% { opacity: 0.75; }
+      55% { opacity: 0.85; }
+      100% { transform: translateX(260%) skewX(-24deg); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(styleEl);
+}
+
 function apply3DButtonStyle(btn, isTodayHighlight = false) {
   if (!btn) return;
+  ensureButtonShineKeyframes();
+
+  btn.style.position = "relative";
+  btn.style.overflow = "hidden";
   btn.style.fontFamily = "inherit";
-  btn.style.fontWeight = "600";
-  btn.style.borderRadius = "14px";
-  btn.style.padding = "12px 16px";
+  btn.style.fontWeight = "700";
+  btn.style.borderRadius = "15px";
+  btn.style.padding = "13px 18px";
   btn.style.cursor = "pointer";
   btn.style.transition = "transform 0.12s ease, box-shadow 0.12s ease";
 
   const restShadow = isTodayHighlight
-    ? "inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 0 #0d1f17, 0 8px 18px rgba(25,56,42,0.22)"
-    : "inset 0 1px 0 rgba(255,255,255,0.92), 0 4px 0 #b4c2b8, 0 8px 16px rgba(25,56,42,0.08)";
+    ? "inset 0 2px 1px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 7px 0 #0a1812, 0 14px 24px rgba(25,56,42,0.32)"
+    : "inset 0 2px 1px rgba(255,255,255,0.98), inset 0 -3px 5px rgba(25,56,42,0.12), 0 7px 0 #9eb0a4, 0 14px 22px rgba(25,56,42,0.16)";
 
   const pressShadow = isTodayHighlight
-    ? "inset 0 2px 5px rgba(0,0,0,0.28), 0 1px 0 #0d1f17, 0 3px 8px rgba(25,56,42,0.14)"
-    : "inset 0 2px 4px rgba(25,56,42,0.15), 0 1px 0 #b4c2b8, 0 3px 8px rgba(25,56,42,0.08)";
+    ? "inset 0 3px 7px rgba(0,0,0,0.45), 0 2px 0 #0a1812, 0 5px 10px rgba(25,56,42,0.18)"
+    : "inset 0 3px 7px rgba(25,56,42,0.24), 0 2px 0 #9eb0a4, 0 5px 10px rgba(25,56,42,0.12)";
 
   if (isTodayHighlight) {
-    btn.style.background = "linear-gradient(180deg, #25523e 0%, #19382a 100%)";
+    btn.style.background = "linear-gradient(180deg, #2d624a 0%, #19382a 62%, #11271d 100%)";
     btn.style.color = "#f5f2eb";
-    btn.style.border = "1px solid #11261d";
+    btn.style.border = "1px solid #0e2018";
   } else {
-    btn.style.background = "linear-gradient(180deg, #fdfcf9 0%, #efe9dc 100%)";
+    btn.style.background = "linear-gradient(180deg, #ffffff 0%, #f3eee2 58%, #e4dccb 100%)";
     btn.style.color = "#19382a";
-    btn.style.border = "1px solid #cad5cd";
+    btn.style.border = "1px solid #becbc2";
   }
 
   btn.style.boxShadow = restShadow;
+
+  if (!btn.querySelector(".dw-3d-shine")) {
+    const shine = document.createElement("span");
+    shine.className = "dw-3d-shine";
+    shine.style.position = "absolute";
+    shine.style.top = "-20%";
+    shine.style.left = "0";
+    shine.style.width = "48%";
+    shine.style.height = "140%";
+    shine.style.pointerEvents = "none";
+    shine.style.background = isTodayHighlight
+      ? "linear-gradient(90deg, transparent, rgba(255,255,255,0.34), transparent)"
+      : "linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent)";
+    shine.style.animation = "dailywordGlossSweep 2.8s ease-in-out infinite";
+    btn.appendChild(shine);
+  }
+
   btn.addEventListener("pointerdown", () => {
-    btn.style.transform = "translateY(3px)";
+    btn.style.transform = "translateY(5px)";
     btn.style.boxShadow = pressShadow;
   });
+
   const release = () => {
     btn.style.transform = "translateY(0)";
     btn.style.boxShadow = restShadow;
   };
+
   btn.addEventListener("pointerup", release);
   btn.addEventListener("pointerleave", release);
 }
@@ -263,7 +304,7 @@ if (novemberList) {
         class="nov-verse-button"
         data-index="${index}"
         data-day="${dayNum}"
-        style="display:block;width:100%;text-align:left;margin-bottom:12px;padding:14px 16px;cursor:pointer;">
+        style="display:block;width:100%;text-align:left;margin-bottom:14px;padding:14px 16px;cursor:pointer;">
         November ${dayNum} — ${verse.ref}
       </button>
     `;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#1b3b2b" />
+  <meta name="theme-color" content="#19382a" />
   <meta name="description" content="Daily Bible verse in Sinhala and English, with meaning and related verses." />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
@@ -12,15 +12,16 @@
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg: #f4f1ea;
-      --ink: #17241e;
-      --muted: #55635b;
-      --green: #1b3b2b;
-      --green-dark: #11271c;
-      --gold: #c99c4e;
+      --bg: #f5f2eb;
+      --ink: #182620;
+      --muted: #56655d;
+      --green: #19382a;
+      --green-soft: #264f3c;
+      --gold: #c89b4b;
+      --gold-light: #ebd09c;
       --card: #ffffff;
       --card-soft: #faf8f3;
-      --line: #e4dfd3;
+      --line: #e3ddd0;
     }
 
     * {
@@ -43,7 +44,7 @@
       width: 100%;
       max-width: 780px;
       margin: 0 auto;
-      padding: 24px 16px 50px;
+      padding: 24px 16px 48px;
     }
 
     header {
@@ -66,25 +67,17 @@
       height: 44px;
       padding: 0;
       border-radius: 14px;
-      background: linear-gradient(155deg, #27533d 0%, var(--green) 60%, var(--green-dark) 100%);
-      color: #f4f1ea;
+      background: var(--green);
+      color: var(--gold-light);
       display: grid;
       place-items: center;
-      font-size: 22px;
+      font-size: 21px;
       flex-shrink: 0;
-      box-shadow:
-        0 4px 0 #0c1d15,
-        0 8px 16px rgba(23, 36, 30, 0.2);
-    }
-
-    .logo-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #0c1d15, 0 4px 8px rgba(23, 36, 30, 0.18);
+      border: 1px solid rgba(200, 155, 75, 0.35);
     }
 
     .brand-title {
       font-weight: 700;
-      letter-spacing: 0.2px;
       color: var(--green);
       font-size: 16px;
       line-height: 1.25;
@@ -99,7 +92,7 @@
     }
 
     .date-pill {
-      background: linear-gradient(180deg, #ffffff 0%, #f7f4ec 100%);
+      background: var(--card);
       border: 1px solid var(--line);
       padding: 8px 13px;
       border-radius: 999px;
@@ -107,63 +100,18 @@
       font-size: 12px;
       white-space: nowrap;
       flex-shrink: 0;
-      box-shadow: 0 3px 0 #ded8ca, 0 6px 12px rgba(23, 36, 30, 0.06);
     }
 
     .hero {
-      background: linear-gradient(155deg, #244e39 0%, var(--green) 55%, var(--green-dark) 100%);
-      color: #f7f5ef;
-      border-radius: 26px;
+      background: linear-gradient(155deg, var(--green-soft) 0%, var(--green) 100%);
+      color: #f8f6f0;
+      border-radius: 24px;
       padding: 28px 22px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(230, 198, 138, 0.25);
-      box-shadow:
-        0 7px 0 #0d1f16,
-        0 18px 34px rgba(23, 36, 30, 0.22);
-    }
-
-    /* Top-right sunrise light-up glow */
-    .hero-sunrise-glow {
-      position: absolute;
-      top: -45px;
-      right: -45px;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: radial-gradient(
-        circle at 65% 35%,
-        rgba(255, 224, 155, 0.34) 0%,
-        rgba(230, 198, 138, 0.14) 42%,
-        rgba(230, 198, 138, 0) 72%
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* White Bible outline slightly below top-right sunrise */
-    .hero-bible-outline {
-      position: absolute;
-      right: 18px;
-      bottom: 16px;
-      width: min(124px, 30vw);
-      height: min(104px, 25vw);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .eyebrow,
-    h1,
-    .ref,
-    .verse,
-    .english,
-    .hero-actions {
-      position: relative;
-      z-index: 1;
+      border: 1px solid rgba(200, 155, 75, 0.28);
     }
 
     .eyebrow {
-      color: #e6c68a;
+      color: var(--gold-light);
       text-transform: uppercase;
       letter-spacing: 2.2px;
       font-size: 11px;
@@ -171,20 +119,24 @@
     }
 
     h1 {
-      font-size: clamp(24px, 4vw, 34px);
-      margin: 8px 0 18px;
+      font-size: clamp(24px, 4vw, 33px);
+      margin: 8px 0 16px;
       font-weight: 700;
       line-height: 1.35;
       color: #ffffff;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     }
 
     .ref {
-      color: #e6c68a;
+      display: inline-block;
+      color: var(--gold-light);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(235, 208, 156, 0.28);
+      padding: 5px 12px;
+      border-radius: 999px;
       font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 12px;
+      font-size: 13px;
+      margin-bottom: 14px;
     }
 
     .verse {
@@ -194,7 +146,6 @@
       color: #ffffff;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
       word-wrap: break-word;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     }
 
     .english {
@@ -202,7 +153,7 @@
       padding-top: 14px;
       font-size: 16.5px;
       line-height: 1.7;
-      color: #e3ece7;
+      color: #e6efe9;
       font-style: italic;
       word-wrap: break-word;
     }
@@ -210,7 +161,7 @@
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       margin-top: 22px;
     }
 
@@ -221,44 +172,31 @@
       border-radius: 12px;
       padding: 11px 16px;
       font-weight: 600;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
     button:active {
-      transform: translateY(2px);
+      transform: scale(0.98);
     }
 
     .primary {
-      background: linear-gradient(180deg, #efd39e 0%, #dfb976 100%);
-      color: #17241e;
-      box-shadow: 0 4px 0 #a88240, 0 8px 14px rgba(0, 0, 0, 0.2);
-    }
-
-    .primary:active {
-      box-shadow: 0 1px 0 #a88240;
+      background: var(--gold-light);
+      color: var(--ink);
     }
 
     .ghost {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.08) 100%);
-      color: #f7f5ef;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      box-shadow: 0 4px 0 rgba(9, 22, 16, 0.75), 0 8px 14px rgba(0, 0, 0, 0.18);
-    }
-
-    .ghost:active {
-      box-shadow: 0 1px 0 rgba(9, 22, 16, 0.75);
+      background: rgba(255, 255, 255, 0.1);
+      color: #f8f6f0;
+      border: 1px solid rgba(255, 255, 255, 0.22);
     }
 
     .section {
-      margin-top: 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #fcfbf7 100%);
+      margin-top: 16px;
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: 20px;
       overflow: hidden;
-      box-shadow:
-        0 5px 0 #ded8ca,
-        0 12px 24px rgba(23, 36, 30, 0.08);
     }
 
     .section h2 {
@@ -267,6 +205,8 @@
       color: var(--green);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
       line-height: 1.45;
+      padding-left: 10px;
+      border-left: 3px solid var(--gold);
     }
 
     .section p {
@@ -289,28 +229,21 @@
       display: block !important;
       width: 100% !important;
       text-align: left !important;
-      background: #faf8f3 !important;
-      color: #17241e !important;
-      border: 1px solid #d4cdc0 !important;
-      border-left: 4px solid #1b3b2b !important;
+      background: var(--card-soft) !important;
+      color: var(--ink) !important;
+      border: 1px solid var(--line) !important;
+      border-left: 3px solid var(--green) !important;
       border-radius: 12px !important;
-      padding: 13px 15px !important;
-      margin-bottom: 10px !important;
+      padding: 12px 14px !important;
+      margin-bottom: 8px !important;
       font-weight: 600 !important;
       font-size: 14px !important;
       line-height: 1.5 !important;
-      box-shadow: 0 3px 0 #e2dcd0 !important;
     }
 
     .nov-verse-button:hover {
-      background: #f3efe4 !important;
-      border-color: #b9b09f !important;
-      border-left-color: #c99c4e !important;
-    }
-
-    .nov-verse-button:active {
-      transform: translateY(2px) !important;
-      box-shadow: 0 1px 0 #e2dcd0 !important;
+      background: #f2ede2 !important;
+      border-left-color: var(--gold) !important;
     }
 
     .related {
@@ -323,14 +256,13 @@
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 13px;
-      background: linear-gradient(180deg, #ffffff 0%, #f8f5ed 100%);
-      box-shadow: 0 3px 0 #e0dad0;
+      background: var(--card-soft);
       min-width: 0;
     }
 
     .related-item strong {
       display: block;
-      color: #94713c;
+      color: #8f6a2c;
       margin-bottom: 6px;
       font-size: 14px;
     }
@@ -347,7 +279,6 @@
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 14px;
-      box-shadow: inset 0 1px 3px rgba(23, 36, 30, 0.05);
     }
 
     .reflection label {
@@ -361,7 +292,7 @@
     textarea {
       width: 100%;
       min-height: 94px;
-      border: 1px solid #d5cfc2;
+      border: 1px solid #d4cec0;
       border-radius: 12px;
       padding: 12px;
       background: var(--card);
@@ -369,22 +300,16 @@
       resize: vertical;
       font: inherit;
       line-height: 1.75;
-      box-shadow: inset 0 2px 4px rgba(23, 36, 30, 0.05);
     }
 
     .reflection button {
       margin-top: 10px;
-      background: linear-gradient(180deg, #244e39 0%, var(--green) 100%);
+      background: var(--green);
       color: #ffffff;
-      box-shadow: 0 4px 0 #0e2017, 0 6px 12px rgba(23, 36, 30, 0.16);
-    }
-
-    .reflection button:active {
-      box-shadow: 0 1px 0 #0e2017;
     }
 
     .saved {
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
     .saved-list {
@@ -397,23 +322,21 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      background: linear-gradient(180deg, #ffffff 0%, #f8f5ed 100%);
+      background: var(--card-soft);
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 12px 14px;
       font-size: 14px;
       line-height: 1.7;
       color: var(--ink);
-      box-shadow: 0 3px 0 #e0dad0;
     }
 
     .saved-entry button {
-      background: linear-gradient(180deg, #f2eee4 0%, #e3ddd0 100%);
+      background: #ece7dc;
       color: var(--ink);
       padding: 8px 12px;
       font-size: 12px;
       flex-shrink: 0;
-      box-shadow: 0 2px 0 #c9c2b3;
     }
 
     footer {
@@ -429,7 +352,7 @@
       left: 50%;
       bottom: 20px;
       transform: translateX(-50%);
-      background: linear-gradient(180deg, #244e39 0%, var(--green) 100%);
+      background: var(--green);
       color: #ffffff;
       padding: 10px 16px;
       border-radius: 12px;
@@ -440,7 +363,6 @@
       font-size: 13.5px;
       max-width: 90vw;
       text-align: center;
-      box-shadow: 0 4px 0 #0e2017, 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
     .toast.show {
@@ -460,7 +382,7 @@
       }
       .hero {
         padding: 22px 17px;
-        border-radius: 22px;
+        border-radius: 20px;
       }
       .verse {
         font-size: 18px;
@@ -470,7 +392,7 @@
       }
       .section {
         padding: 16px;
-        border-radius: 18px;
+        border-radius: 16px;
       }
     }
   </style>
@@ -489,22 +411,6 @@
     </header>
 
     <article class="hero">
-      <div class="hero-sunrise-glow" aria-hidden="true"></div>
-
-      <!-- White open Bible outline -->
-      <svg class="hero-bible-outline" viewBox="0 0 140 116" fill="none" aria-hidden="true">
-        <path
-          d="M70 24C52 14 28 14 12 20V92C28 86 52 86 70 96C88 86 112 86 128 92V20C112 14 88 14 70 24Z"
-          stroke="#ffffff"
-          stroke-opacity="0.22"
-          stroke-width="2.4"
-          stroke-linejoin="round"
-        />
-        <path d="M70 24V96" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2.2" stroke-linecap="round" />
-        <path d="M26 38H54M26 52H54M26 66H46" stroke="#ffffff" stroke-opacity="0.16" stroke-width="2" stroke-linecap="round" />
-        <path d="M86 38H114M86 52H114M94 66H114" stroke="#ffffff" stroke-opacity="0.16" stroke-width="2" stroke-linecap="round" />
-      </svg>
-
       <div class="eyebrow">Today's scripture</div>
       <h1>අද දවසේ දේව වචනය</h1>
       <div class="ref" id="reference"></div>

@@ -12,12 +12,12 @@
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg: #efe7d4;
-      --bg-warm: #e2d4b7;
+      --bg: #f1e8d5;
+      --bg-warm: #e4d5b7;
       --ink: #1b2c23;
       --muted: #4f5e55;
       --green: #1e382d;
-      --green-deep: #13251d;
+      --green-deep: #12241c;
       --gold: #c99c4e;
       --gold-soft: #f0d39c;
       --card: rgba(255, 254, 250, 0.94);
@@ -32,12 +32,11 @@
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 75% 12%, rgba(242, 196, 110, 0.34), transparent 36%),
-        radial-gradient(circle at 20% 85%, rgba(69, 108, 86, 0.22), transparent 45%),
-        linear-gradient(165deg, var(--bg) 0%, var(--bg-warm) 55%, #d8c8a8 100%);
+        radial-gradient(circle at 78% 12%, rgba(242, 196, 110, 0.36), transparent 36%),
+        radial-gradient(circle at 18% 88%, rgba(69, 108, 86, 0.22), transparent 45%),
+        linear-gradient(165deg, var(--bg) 0%, var(--bg-warm) 58%, #d7c5a3 100%);
       color: var(--ink);
       font-family: 'DM Sans', 'Noto Sans Sinhala', sans-serif;
-      position: relative;
     }
 
     .wrap {
@@ -109,40 +108,32 @@
       padding: 34px 28px 28px;
       color: #fbf9f2;
       background:
-        radial-gradient(circle at 82% 24%, rgba(244, 198, 112, 0.28), transparent 34%),
-        radial-gradient(circle at 18% 88%, rgba(88, 134, 106, 0.22), transparent 45%),
-        linear-gradient(135deg, rgba(14, 30, 23, 0.94) 0%, rgba(23, 45, 35, 0.88) 58%, rgba(16, 32, 25, 0.95) 100%);
+        radial-gradient(circle at 84% 28%, rgba(244, 198, 112, 0.28), transparent 36%),
+        radial-gradient(circle at 15% 90%, rgba(82, 128, 101, 0.2), transparent 45%),
+        linear-gradient(135deg, rgba(14, 30, 23, 0.95) 0%, rgba(22, 44, 34, 0.90) 58%, rgba(15, 31, 24, 0.96) 100%);
       position: relative;
       overflow: hidden;
       box-shadow: 0 22px 46px rgba(18, 34, 27, 0.24);
       border: 1px solid rgba(240, 211, 156, 0.28);
     }
 
-    .hero::before {
-      content: "";
+    .hero-scene {
       position: absolute;
-      right: 54px;
-      bottom: 24px;
-      width: 14px;
-      height: 120px;
-      border-radius: 999px;
-      background: rgba(240, 211, 156, 0.11);
-      box-shadow:
-        0 -28px 0 -2px rgba(240, 211, 156, 0.11),
-        0 0 38px rgba(242, 196, 110, 0.18);
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
+      z-index: 0;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: 26px;
-      top: 56px;
-      width: 70px;
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(240, 211, 156, 0.11);
-      pointer-events: none;
+    .eyebrow,
+    h1,
+    .ref,
+    .verse,
+    .english,
+    .hero-actions {
+      position: relative;
+      z-index: 1;
     }
 
     .eyebrow {
@@ -152,8 +143,6 @@
       font-size: 11px;
       font-weight: 700;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
-      position: relative;
-      z-index: 1;
     }
 
     h1 {
@@ -164,22 +153,18 @@
       color: #fffdf8;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      position: relative;
-      z-index: 1;
     }
 
     .ref {
       display: inline-block;
       color: var(--gold-soft);
-      background: rgba(15, 29, 22, 0.62);
+      background: rgba(15, 29, 22, 0.65);
       border: 1px solid rgba(240, 211, 156, 0.34);
       padding: 5px 12px;
       border-radius: 999px;
       font-weight: 600;
       font-size: 13px;
       margin-bottom: 14px;
-      position: relative;
-      z-index: 1;
     }
 
     .verse {
@@ -190,8 +175,6 @@
       color: #ffffff;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
-      position: relative;
-      z-index: 1;
     }
 
     .english {
@@ -203,8 +186,6 @@
       font-style: italic;
       max-width: 640px;
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
-      position: relative;
-      z-index: 1;
     }
 
     .hero-actions {
@@ -212,8 +193,6 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 24px;
-      position: relative;
-      z-index: 1;
     }
 
     button {
@@ -429,6 +408,33 @@
     </header>
 
     <article class="hero">
+      <svg class="hero-scene" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <radialGradient id="sunriseGlow" cx="78%" cy="32%" r="48%">
+            <stop offset="0%" stop-color="#f5c976" stop-opacity="0.28" />
+            <stop offset="55%" stop-color="#c99c4e" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#14281f" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="800" height="420" fill="url(#sunriseGlow)" />
+        <!-- Soft sunrise rays -->
+        <g stroke="#f0d39c" stroke-opacity="0.11" stroke-width="2">
+          <line x1="624" y1="135" x2="430" y2="25" />
+          <line x1="624" y1="135" x2="495" y2="10" />
+          <line x1="624" y1="135" x2="575" y2="5" />
+          <line x1="624" y1="135" x2="665" y2="5" />
+          <line x1="624" y1="135" x2="745" y2="20" />
+          <line x1="624" y1="135" x2="800" y2="65" />
+        </g>
+        <!-- Gentle hill silhouette -->
+        <path d="M0 365 Q230 315 470 355 T800 325 L800 420 L0 420 Z" fill="#0d1d16" fill-opacity="0.45" />
+        <!-- Subtle Christian cross on the hill -->
+        <g fill="#f0d39c" fill-opacity="0.14">
+          <rect x="652" y="168" width="12" height="156" rx="4" />
+          <rect x="622" y="206" width="72" height="12" rx="4" />
+        </g>
+      </svg>
+
       <div class="eyebrow">Today's scripture</div>
       <h1>අද දවසේ දේව වචනය</h1>
       <div class="ref" id="reference"></div>

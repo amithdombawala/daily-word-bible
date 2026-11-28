@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#164232" />
+  <meta name="theme-color" content="#144531" />
   <meta name="description" content="Daily Bible verse in Sinhala and English, with meaning and related verses." />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
@@ -12,20 +12,19 @@
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg-top: #e7f3ec;
-      --bg-mid: #d7eadf;
-      --bg-bot: #c4e0d0;
-      --ink: #0f291e;
-      --muted: #3b5e4d;
-      --green-dark: #0f3325;
-      --green-main: #184e39;
-      --green-mid: #23694d;
-      --green-light: #a7d7be;
-      --green-tint: #eef7f1;
+      --bg-top: #e8f5ee;
+      --bg-mid: #d3eadc;
+      --bg-bot: #bce0ca;
+      --ink: #0f2a1f;
+      --muted: #395c4b;
+      --green-dark: #0d2e21;
+      --green-deep: #144531;
+      --green-main: #1c5e43;
+      --green-light: #2b7a58;
+      --mint: #a8e2c3;
       --surface: #ffffff;
-      --surface-soft: #f3faf5;
-      --line: #cce2d5;
-      --shadow: 0 10px 26px rgba(15, 51, 37, 0.08);
+      --surface-soft: #f2faf5;
+      --line: #c7e2d2;
     }
 
     * {
@@ -39,7 +38,9 @@
       width: 100%;
       max-width: 100%;
       overflow-x: hidden;
-      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bot) 100%);
+      background:
+        radial-gradient(circle at 80% 10%, rgba(72, 168, 124, 0.22), transparent 42%),
+        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bot) 100%);
       color: var(--ink);
       font-family: 'DM Sans', 'Noto Sans Sinhala', sans-serif;
     }
@@ -48,20 +49,24 @@
       width: 100%;
       max-width: 780px;
       margin: 0 auto;
-      padding: 20px 16px 48px;
+      padding: 20px 16px 50px;
     }
 
+    /* 3D raised header card */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 18px;
-      background: var(--surface);
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #f4fbf7 100%);
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-top: 1px solid #ffffff;
+      border-radius: 20px;
       padding: 12px 14px;
-      box-shadow: var(--shadow);
+      box-shadow:
+        0 6px 0 #b7d8c4,
+        0 14px 26px rgba(13, 46, 33, 0.14);
     }
 
     .brand {
@@ -72,15 +77,19 @@
     }
 
     .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      background: linear-gradient(145deg, var(--green-mid), var(--green-dark));
-      color: #dff7ea;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(155deg, #2d845f 0%, var(--green-deep) 55%, var(--green-dark) 100%);
+      color: #e4faee;
+      border-top: 1px solid rgba(214, 248, 229, 0.55);
       display: grid;
       place-items: center;
       font-size: 22px;
       flex-shrink: 0;
+      box-shadow:
+        0 4px 0 #092117,
+        0 8px 16px rgba(10, 36, 25, 0.25);
     }
 
     .brand-title {
@@ -99,32 +108,36 @@
     }
 
     .date-pill {
-      background: var(--green-tint);
-      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #f3fbf6 0%, #e1f3e8 100%);
+      border: 1px solid #bedbc9;
       padding: 8px 12px;
       border-radius: 999px;
-      color: var(--green-main);
+      color: var(--green-deep);
       font-weight: 600;
       font-size: 11.5px;
       white-space: nowrap;
       flex-shrink: 0;
+      box-shadow: 0 2px 0 #b7d7c3;
     }
 
+    /* 3D hero card with black shadow cross */
     .hero {
-      border-radius: 24px;
-      padding: 26px 22px;
+      border-radius: 26px;
+      padding: 28px 22px 26px;
       color: #f5fbf7;
       background:
-        radial-gradient(circle at 88% 15%, rgba(125, 211, 168, 0.24), transparent 42%),
-        radial-gradient(circle at 12% 90%, rgba(52, 138, 102, 0.35), transparent 48%),
-        linear-gradient(140deg, #0d2b1f 0%, #164734 55%, #1e5c43 100%);
+        radial-gradient(circle at 18% 12%, rgba(138, 224, 178, 0.22), transparent 45%),
+        linear-gradient(155deg, #236b4d 0%, #164934 48%, #0c2b1e 100%);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 16px 36px rgba(13, 43, 31, 0.2);
-      border: 1px solid rgba(167, 215, 190, 0.28);
+      border: 1px solid rgba(168, 226, 195, 0.35);
+      border-top: 1px solid rgba(208, 247, 226, 0.45);
+      box-shadow:
+        0 8px 0 #092217,
+        0 20px 38px rgba(10, 36, 25, 0.28);
     }
 
-    .hero-scene {
+    .hero-shadow-layer {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -149,6 +162,7 @@
       letter-spacing: 2px;
       font-size: 11px;
       font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
     }
 
     h1 {
@@ -158,18 +172,20 @@
       line-height: 1.35;
       color: #ffffff;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
     }
 
     .ref {
       display: inline-block;
-      color: #d6f7e6;
-      background: rgba(10, 34, 24, 0.62);
-      border: 1px solid rgba(167, 215, 190, 0.35);
+      color: #dcf8e9;
+      background: rgba(6, 22, 15, 0.68);
+      border: 1px solid rgba(168, 226, 195, 0.35);
       padding: 5px 12px;
       border-radius: 999px;
       font-weight: 600;
       font-size: 13px;
       margin-bottom: 14px;
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12), 0 3px 8px rgba(0, 0, 0, 0.3);
     }
 
     .verse {
@@ -179,57 +195,79 @@
       color: #ffffff;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
       word-wrap: break-word;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
     }
 
     .english {
-      border-top: 1px solid rgba(183, 235, 208, 0.25);
+      border-top: 1px solid rgba(183, 235, 208, 0.26);
       padding-top: 14px;
       font-size: 16px;
       line-height: 1.7;
-      color: #e4f6ec;
+      color: #e6f7ee;
       font-style: italic;
       word-wrap: break-word;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       margin-top: 22px;
     }
 
+    /* 3D tactile buttons */
     button {
       font: inherit;
       cursor: pointer;
       border: 0;
-      border-radius: 12px;
+      border-radius: 13px;
       padding: 11px 16px;
       font-weight: 600;
-      transition: transform 0.15s ease, opacity 0.15s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     button:active {
-      transform: scale(0.98);
+      transform: translateY(3px);
     }
 
     .primary {
-      background: #9ee0be;
-      color: #0b261b;
+      background: linear-gradient(180deg, #b8ebd0 0%, #8fd5b1 100%);
+      color: #092419;
+      border-top: 1px solid #dcf9ea;
+      box-shadow:
+        0 4px 0 #4f9472,
+        0 8px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .primary:active {
+      box-shadow: 0 1px 0 #4f9472, 0 3px 6px rgba(0, 0, 0, 0.2);
     }
 
     .ghost {
-      background: rgba(11, 38, 27, 0.65);
+      background: linear-gradient(180deg, rgba(24, 68, 49, 0.88) 0%, rgba(9, 32, 22, 0.92) 100%);
       color: #f3fbf7;
-      border: 1px solid rgba(167, 215, 190, 0.38);
+      border: 1px solid rgba(168, 226, 195, 0.36);
+      box-shadow:
+        0 4px 0 #061810,
+        0 8px 16px rgba(0, 0, 0, 0.25);
     }
 
+    .ghost:active {
+      box-shadow: 0 1px 0 #061810, 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 3D section cards */
     .section {
-      margin-top: 16px;
-      background: var(--surface);
+      margin-top: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7fcfa 100%);
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-top: 1px solid #ffffff;
+      border-radius: 22px;
       padding: 20px;
-      box-shadow: var(--shadow);
+      box-shadow:
+        0 6px 0 #b7d8c4,
+        0 14px 26px rgba(13, 46, 33, 0.12);
       overflow: hidden;
     }
 
@@ -239,17 +277,18 @@
       color: var(--green-dark);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       font-family: 'Noto Sans Sinhala', 'DM Sans', sans-serif;
       line-height: 1.45;
     }
 
     .section h2::before {
       content: "";
-      width: 5px;
-      height: 18px;
+      width: 6px;
+      height: 19px;
       border-radius: 999px;
-      background: linear-gradient(180deg, #2b8a62, #0f3325);
+      background: linear-gradient(180deg, #32946a 0%, var(--green-dark) 100%);
+      box-shadow: 0 2px 4px rgba(13, 46, 33, 0.25);
       flex-shrink: 0;
     }
 
@@ -276,15 +315,17 @@
 
     .related-item {
       border: 1px solid var(--line);
-      border-radius: 15px;
+      border-top: 1px solid #ffffff;
+      border-radius: 16px;
       padding: 13px;
-      background: var(--surface-soft);
+      background: linear-gradient(180deg, #ffffff 0%, #edf8f1 100%);
+      box-shadow: 0 4px 0 #c1decb, 0 8px 16px rgba(13, 46, 33, 0.08);
       min-width: 0;
     }
 
     .related-item strong {
       display: block;
-      color: var(--green-main);
+      color: var(--green-deep);
       margin-bottom: 6px;
       font-size: 14px;
     }
@@ -297,10 +338,11 @@
     }
 
     .reflection {
-      background: var(--green-tint);
-      border: 1px solid var(--line);
-      border-radius: 15px;
+      background: linear-gradient(180deg, #eef8f2 0%, #e2f2e8 100%);
+      border: 1px solid #c2decb;
+      border-radius: 16px;
       padding: 14px;
+      box-shadow: inset 0 2px 4px rgba(13, 46, 33, 0.06);
     }
 
     .reflection label {
@@ -314,29 +356,36 @@
     textarea {
       width: 100%;
       min-height: 94px;
-      border: 1px solid #b5d5c3;
-      border-radius: 12px;
+      border: 1px solid #b2d3be;
+      border-radius: 13px;
       padding: 12px;
       background: var(--surface);
       color: var(--ink);
       resize: vertical;
       font: inherit;
       line-height: 1.75;
+      box-shadow: inset 0 2px 5px rgba(13, 46, 33, 0.07);
     }
 
     textarea:focus {
-      outline: 2px solid rgba(35, 105, 77, 0.35);
-      border-color: var(--green-mid);
+      outline: 2px solid rgba(28, 94, 67, 0.35);
+      border-color: var(--green-main);
     }
 
     .reflection button {
-      margin-top: 10px;
-      background: linear-gradient(135deg, var(--green-mid), var(--green-dark));
+      margin-top: 12px;
+      background: linear-gradient(180deg, #277453 0%, var(--green-dark) 100%);
       color: #ffffff;
+      border-top: 1px solid #59b48d;
+      box-shadow: 0 4px 0 #081e15, 0 8px 14px rgba(13, 46, 33, 0.2);
+    }
+
+    .reflection button:active {
+      box-shadow: 0 1px 0 #081e15;
     }
 
     .saved {
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
     .saved-list {
@@ -349,28 +398,30 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      background: var(--surface-soft);
+      background: linear-gradient(180deg, #ffffff 0%, #eff8f2 100%);
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 15px;
       padding: 12px 14px;
       font-size: 14px;
       line-height: 1.7;
       color: var(--ink);
+      box-shadow: 0 3px 0 #c2decb;
     }
 
     .saved-entry button {
-      background: #dff0e6;
+      background: linear-gradient(180deg, #e5f4ea 0%, #cce6d6 100%);
       color: var(--green-dark);
       padding: 8px 12px;
       font-size: 12px;
       flex-shrink: 0;
+      box-shadow: 0 2px 0 #a8cbb5;
     }
 
     footer {
       text-align: center;
       color: var(--muted);
       font-size: 12px;
-      padding: 24px 8px 12px;
+      padding: 26px 8px 12px;
       line-height: 1.75;
     }
 
@@ -379,11 +430,11 @@
       left: 50%;
       bottom: 20px;
       transform: translateX(-50%);
-      background: var(--green-dark);
+      background: linear-gradient(180deg, #1b573e 0%, var(--green-dark) 100%);
       color: #ffffff;
-      border: 1px solid rgba(167, 215, 190, 0.35);
+      border: 1px solid rgba(168, 226, 195, 0.35);
       padding: 10px 16px;
-      border-radius: 12px;
+      border-radius: 13px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease;
@@ -391,6 +442,7 @@
       font-size: 13.5px;
       max-width: 90vw;
       text-align: center;
+      box-shadow: 0 5px 0 #071b13, 0 12px 22px rgba(0, 0, 0, 0.25);
     }
 
     .toast.show {
@@ -399,7 +451,7 @@
 
     @media (max-width: 560px) {
       .wrap {
-        padding: 14px 12px 36px;
+        padding: 14px 12px 38px;
       }
       header {
         flex-wrap: wrap;
@@ -411,7 +463,7 @@
       }
       .hero {
         padding: 22px 17px;
-        border-radius: 20px;
+        border-radius: 22px;
       }
       .verse {
         font-size: 18px;
@@ -421,7 +473,7 @@
       }
       .section {
         padding: 16px;
-        border-radius: 16px;
+        border-radius: 18px;
       }
     }
   </style>
@@ -440,19 +492,28 @@
     </header>
 
     <article class="hero">
-      <svg class="hero-scene" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <!-- 3D depth glow + black cross shadow -->
+      <svg class="hero-shadow-layer" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <defs>
-          <radialGradient id="greenLightGlow" cx="78%" cy="30%" r="50%">
-            <stop offset="0%" stop-color="#9ee0be" stop-opacity="0.24" />
-            <stop offset="60%" stop-color="#2b8a62" stop-opacity="0.08" />
-            <stop offset="100%" stop-color="#0d2b1f" stop-opacity="0" />
+          <radialGradient id="topHighlight3D" cx="24%" cy="18%" r="55%">
+            <stop offset="0%" stop-color="#a8e8c6" stop-opacity="0.22" />
+            <stop offset="65%" stop-color="#1c6145" stop-opacity="0.05" />
+            <stop offset="100%" stop-color="#071d14" stop-opacity="0" />
           </radialGradient>
+          <filter id="softBlackShadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="8" />
+          </filter>
         </defs>
-        <rect width="800" height="420" fill="url(#greenLightGlow)" />
-        <path d="M0 365 Q240 315 480 355 T800 325 L800 420 L0 420 Z" fill="#091f16" fill-opacity="0.42" />
-        <g fill="#b7ebd0" fill-opacity="0.14">
-          <rect x="652" y="168" width="12" height="156" rx="4" />
-          <rect x="622" y="206" width="72" height="12" rx="4" />
+        <rect width="800" height="420" fill="url(#topHighlight3D)" />
+        <!-- Soft black shadow behind the cross -->
+        <g fill="#030a07" fill-opacity="0.52" filter="url(#softBlackShadow)" transform="translate(10, 12)">
+          <rect x="646" y="85" width="22" height="255" rx="6" />
+          <rect x="598" y="148" width="118" height="20" rx="6" />
+        </g>
+        <!-- Crisp black shadow cross -->
+        <g fill="#040d09" fill-opacity="0.34">
+          <rect x="646" y="85" width="22" height="255" rx="6" />
+          <rect x="598" y="148" width="118" height="20" rx="6" />
         </g>
       </svg>
 

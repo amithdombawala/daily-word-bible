@@ -8,17 +8,17 @@
 </head>
 <body style="margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#f5f2eb;color:#19382a;line-height:1.65;padding:20px 14px 64px;">
   <main style="max-width:780px;margin:0 auto;">
-    <header style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
-      <h1 style="margin-top:0;">Daily Word</h1>
-      <div id="date" style="color:#647067;font-size:0.95rem;"></div>
+    <header class="dw-theme-card" style="background:#faf9f4;border:1px solid #c6d4ca;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h1 style="margin-top:0;color:#19382a;">Daily Word</h1>
+      <div id="date" style="color:#4b6356;font-size:0.95rem;"></div>
     </header>
 
-    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;" aria-live="polite">
-      <h2 id="reference" style="margin-top:0;"></h2>
-      <p id="sinhala" style="font-size:1.1rem;font-weight:600;"></p>
-      <p id="english" style="color:#647067;font-style:italic;"></p>
-      <p id="meaningSi"></p>
-      <p id="meaningEn" style="color:#647067;"></p>
+    <section class="dw-theme-card" style="background:#faf9f4;border:1px solid #c6d4ca;border-radius:18px;padding:20px;margin-bottom:18px;" aria-live="polite">
+      <h2 id="reference" style="margin-top:0;color:#19382a;"></h2>
+      <p id="sinhala" style="font-size:1.1rem;font-weight:600;color:#19382a;"></p>
+      <p id="english" style="color:#4b6356;font-style:italic;"></p>
+      <p id="meaningSi" style="color:#19382a;"></p>
+      <p id="meaningEn" style="color:#4b6356;"></p>
 
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
         <button type="button" id="save">Save Verse</button>
@@ -26,36 +26,36 @@
       </div>
     </section>
 
-    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
-      <h2 style="margin-top:0;">Related Verses</h2>
+    <section class="dw-theme-card" style="background:#faf9f4;border:1px solid #c6d4ca;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;color:#19382a;">Related Verses</h2>
       <div id="related"></div>
     </section>
 
-    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
-      <h2 style="margin-top:0;">November 2026 Plan</h2>
+    <section class="dw-theme-card" style="background:#faf9f4;border:1px solid #c6d4ca;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;color:#19382a;">November 2026 Plan</h2>
       <div id="novemberList"></div>
     </section>
 
-    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
-      <h2 style="margin-top:0;">Personal Reflection</h2>
-      <textarea id="reflection" rows="4" placeholder="Write your reflection for this verse..." style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;"></textarea>
+    <section class="dw-theme-card" style="background:#faf9f4;border:1px solid #c6d4ca;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;color:#19382a;">Personal Reflection</h2>
+      <textarea id="reflection" rows="4" placeholder="Write your reflection for this verse..." style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #c6d4ca;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;"></textarea>
       <button type="button" id="saveReflection">Save Reflection</button>
     </section>
 
-    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;">
-      <h2 style="margin-top:0;">Saved Favorites</h2>
+    <section class="dw-theme-card" style="background:#faf9f4;border:1px solid #c6d4ca;border-radius:18px;padding:20px;margin-bottom:18px;">
+      <h2 style="margin-top:0;color:#19382a;">Saved Favorites</h2>
       <div id="favorites"></div>
     </section>
 
-    <section style="background:#faf9f4;border:1px solid #d8e2da;border-radius:18px;padding:20px;margin-bottom:18px;" id="adminSection">
-      <h2 style="margin-top:0;">Admin · .docx Verse Upload &amp; Auto Translate</h2>
+    <section class="dw-theme-card" style="background:#faf9f4;border:1px solid #c6d4ca;border-radius:18px;padding:20px;margin-bottom:18px;" id="adminSection">
+      <h2 style="margin-top:0;color:#19382a;">Admin · .docx Verse Upload &amp; Auto Translate</h2>
 
       <div id="adminLoginSection">
-        <label for="adminEmail">Admin Email</label>
-        <input type="email" id="adminEmail" placeholder="admin@dailyword.app" autocomplete="username" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
+        <label for="adminEmail" style="color:#19382a;">Admin Email</label>
+        <input type="email" id="adminEmail" placeholder="admin@dailyword.app" autocomplete="username" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #c6d4ca;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
 
-        <label for="adminPassword">Admin Password</label>
-        <input type="password" id="adminPassword" placeholder="Enter password" autocomplete="current-password" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
+        <label for="adminPassword" style="color:#19382a;">Admin Password</label>
+        <input type="password" id="adminPassword" placeholder="Enter password" autocomplete="current-password" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #c6d4ca;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
 
         <button type="button" id="adminLoginBtn">Admin Login</button>
       </div>
@@ -65,14 +65,14 @@
           <button type="button" id="adminLogoutBtn">Logout</button>
         </div>
 
-        <label for="docxFileInput">Upload Sinhala Verses (.docx)</label>
-        <input type="file" id="docxFileInput" accept=".docx" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #d8e2da;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
+        <label for="docxFileInput" style="color:#19382a;">Upload Sinhala Verses (.docx)</label>
+        <input type="file" id="docxFileInput" accept=".docx" style="width:100%;box-sizing:border-box;font-family:inherit;border:1px solid #c6d4ca;border-radius:12px;padding:11px 12px;background:#ffffff;color:#19382a;margin-bottom:10px;" />
 
-        <div id="docxPreviewBox" style="margin-bottom:12px;font-size:0.9rem;color:#647067;"></div>
+        <div id="docxPreviewBox" style="margin-bottom:12px;font-size:0.9rem;color:#4b6356;"></div>
 
         <button type="button" id="publishDocxBtn">Translate &amp; Publish</button>
 
-        <h3 style="margin-top:20px;">Published Custom Verses</h3>
+        <h3 style="margin-top:20px;color:#19382a;">Published Custom Verses</h3>
         <div id="customVersesList"></div>
       </div>
     </section>
